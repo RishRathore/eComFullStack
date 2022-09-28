@@ -1,177 +1,95 @@
-var cartList = require("../config");
-var productList = require("../config");
-var orderList = require("../config");
-const jwt = require("jsonwebtoken");
-const { keys } = require("../config");
+const Cart = require("../models/cart")
+const Product = require("../models/product")
 
-var carts = cartList.carts;
-var products = productList.products;
-var orders = orderList.orders;
+exports.addToCart = async (req, res) => {
+  const { id: productId } = req.params
+  const { userId } = req.body
 
-exports.addToBag = async (req, res) => {
-  let jwtSecretKey = keys.JWT_SECRET_KEY;
-  const token = jwt.sign(req.params, jwtSecretKey, { expiresIn: "3h" });
-  const { id } = req.params;
-  const data = products.filter((item) => item.id == id)[0];
-  products.map((item) => {
-    if (item.id == id) {
-      item.stock = item.stock - 1;
-    }
-  });
-  if (data) {
-    const fillCarts = carts.filter((item) => item.product_id == id);
+  try {
+    const fillCarts = await Cart.find({ product_id: productId })
     if (fillCarts.length > 0) {
-      carts.forEach((item, index) => {
-        if (item.product_id == id) {
-          item.quantity = item.quantity + 1;
-        }
-      });
-      res.status(200);
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
-      res.send(carts);
+      res.status(403)
+      res.send("product already in the cart")
     } else {
-      try {
-        carts.push({
-          id: carts.length + 1,
-          product_id: parseInt(id),
-          user_id: 1,
-          quantity: 1,
-        });
+      const cart = new Cart({
+        product_id: productId,
+        user_id: userId,
+        quantity: 1
+      })
+      await cart.save()
+      updateProductStock(productId, 'incr');
 
-        // res.cookie("jwtoken", token, {
-        //   expiresIn: "1d",
-        //   httpOnly: true,
-        // });
-        res.status(200);
-        res.send("product added into cart");
-      } catch (err) {
-        // res.cookie("jwtoken", token, {
-        //   expiresIn: "1d",
-        //   httpOnly: true,
-        // });
-        res.status(400);
-        res.send(err);
-      }
+      res.status(200)
+      res.send("product added!")
     }
-  }
-};
-
-exports.getBagList = async (req, res) => {
-  console.log("req.cookies==========",req.cookies)
-  let jwtSecretKey = keys.JWT_SECRET_KEY;
-  const token = jwt.sign(req.body, jwtSecretKey, { expiresIn: "3h" });
-  let cartlist = [];
-  try {
-    carts.forEach((item) => {
-      const product = products.find(({ id }) => id === item.product_id);
-      cartlist.push({
-        ...product,
-        quantity: item.quantity,
-        total_price: product.price * item.quantity,
-      });
-    });
-    // res.cookie("jwtoken", token, {
-    //   expiresIn: "1d",
-    //   httpOnly: true,
-    // });
-    res.status(200);
-    res.send(cartlist);
   } catch (err) {
-    res.status(400);
-    console.log("err", err);
+    res.status(400)
+    res.send(err)
   }
-};
+}
 
-exports.updateBag = async (req, res) => {
-  let jwtSecretKey = keys.JWT_SECRET_KEY;
-  const token = jwt.sign(req.body, jwtSecretKey, { expiresIn: "3h" });
-  const { id } = req.params;
-  const { quantity } = req.body;
+exports.getCartList = async (req, res) => {
+  try {
+    const carts = await Cart.find().populate("product_id")
+    res.status(200)
+    res.json(carts)
+  } catch (err) {
+    res.status(400).json({ err })
+    console.log("err", err)
+  }
+}
 
-  products.map((item) => {
-    if (item.id == id) {
-      item.stock = item.stock - quantity;
-    }
-  });
+exports.updateCart = async (req, res) => {
+  const { id } = req.params
+  const { quantity, operationType, productId } = req.body
 
   try {
-    carts.forEach((item, index) => {
-      if (item.product_id == id) {
-        carts.splice(index, 1, { ...item, quantity: quantity });
-      }
-    });
-    let cartlist = [];
-    try {
-      carts.forEach((item) => {
-        const product = products.find(({ id }) => id === item.product_id);
-        cartlist.push({
-          ...product,
-          quantity: item.quantity,
-          total_price: product.price * item.quantity,
-        });
-      });
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
-      res.status(200);
-      res.send(cartlist);
-    } catch (err) {
-      res.status(400);
-      console.log("err", err);
-    }
-    // res.cookie("jwtoken", token, {
-    //   expiresIn: "1d",
-    //   httpOnly: true,
-    // });
-    res.status(200);
-    res.send(cartlist);
+    const qty = operationType === 'incr' ? quantity + 1 : quantity - 1;
+    const update = await Cart.updateOne(
+      { _id: id },
+      { $set: { quantity: qty } }
+    );
+
+    updateProductStock(productId, quantity);
+
+    res.status(200)
+    res.send(update)
   } catch (err) {
-    res.status(400);
-    res.send(err);
+    res.status(400).json({ err })
+    res.send(err)
   }
-};
+}
 
-exports.removeBag = async (req, res) => {
-  let jwtSecretKey = keys.JWT_SECRET_KEY;
-  const token = jwt.sign(req.body, jwtSecretKey, { expiresIn: "3h" });
-  const { id } = req.body;
-
-  carts.forEach((item) => {
-    const product = products.find(({ id }) => id === item.product_id);
-    if (product) {
-      orders.push({
-        ...product,
-        quantity: item.quantity,
-        total_price: product.price * item.quantity,
-        date: new Date(),
-      });
-    }
-    return [];
-  });
-
+exports.flushCart = async (req, res) => {
+  const { id } = req.body
   try {
     if (id) {
-      const filterCarts = carts.filter((item) => item.product_id != id);
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
-      res.status(200);
-      res.send("product has been removed from the cart");
-    } else {
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
-      res.status(200);
-      res.send("");
+      await Cart.deleteOne({ _id: id })
+      res.status(200)
+      res.send("removed")
     }
   } catch (err) {
-    res.status(400);
-    res.send(err);
+    res.status(400)
+    res.send(err)
   }
-};
+}
+
+const updateProductStock = async (prodId, operationType) => {
+  try {
+    const product = await Product.find({ _id: prodId })
+
+    if (product && product.length > 0) {
+      const stock = product[0].stock;
+      const qty = operationType === 'incr' ? stock - 1 : quantity + 1;
+      const updatedStock = stock - qty;
+
+      await Product.updateOne(
+        { _id: prodId },
+        { $set: { stock: updatedStock } }
+      );
+    }
+  } catch (err) {
+    res.status(400).json({ err })
+  }
+}
+

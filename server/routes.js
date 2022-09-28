@@ -12,14 +12,20 @@ app.post("/login", user.userLogin);
 app.get("/user", user.getUser);
 
 app.get("/products", product.getProducts);
-app.post('/addProduct', middlewares.upload, product.addProduct)
+app.post('/addProduct', middlewares.upload, product.addProduct);
+
+app.get("/orders", middlewares.verifyToken, order.getOrders);
+
+app.get('/carts', cart.getCartList)
+app.post('/cart/:id', cart.addToCart)
+app.delete('/cart', cart.flushCart)
+app.patch('/cart/:id', cart.updateCart)
+
 
 // app.get("/products", middlewares.verifyToken, product.getProducts);
-app.get("/orders", middlewares.verifyToken, order.getOrders);
-app.get("/carts", middlewares.verifyToken, cart.getBagList);
-app.post("/cart/:id", middlewares.verifyToken, cart.addToBag);
-app.delete("/cart", middlewares.verifyToken, cart.removeBag);
-app.patch("/cart/:id", cart.updateBag);
+
+// app.get('/carts', middlewares.verifyToken, cart.flushCart)
+
 
 app.get("/set-cookie", (req, res) => {
   res.cookie('cookieName', '1', { expires: new Date(Date.now() + 900000), httpOnly: true })
