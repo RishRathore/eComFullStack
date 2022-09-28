@@ -22,7 +22,7 @@ const NavBar = () => {
   const isSignIn = useSelector((state) => state?.data?.isLoggedIn);
 
   return (
-    <div className="navbar-fixed main-nav bg-warning h-100">
+    <div className="navbar-fixed main-nav bg-secondary h-100">
       <Navbar className="flex-wrap">
         <Container>
           <Navbar.Brand href="/" className="text-white d-flex align-items-center  border-bottom px-0 py-3 mx-0 my-2 w-100">
@@ -76,7 +76,7 @@ const NavBar = () => {
                     className={activeTab === "/cart" ? "text-white px-0 py-2 active" : "text-white px-0 py-2" }
                     style={{ textDecoration: "none" }}
                   >
-                    <FaShoppingCart /> <span className="ms-1">My bag{" "}</span>
+                    <FaShoppingCart /> <span className="ms-1">My Cart{" "}</span>
                   </Nav.Link>
                 </>
               )}

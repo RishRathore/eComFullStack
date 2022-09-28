@@ -11,9 +11,10 @@ import SignUp from "./pages/SignUp";
 import PageNotFound from "./pages/PageNotFound";
 import MyCart from "./pages/MyCart";
 import Order from "./pages/Order";
-import "./App.css";
+import CreateProduct from "./pages/CreateProduct";
 import NavBar from "./components/NavBar";
 import { getUser } from "./actions";
+
 import "./App.css";
 
 if (typeof window !== "undefined") {
@@ -62,6 +63,16 @@ function App() {
         <Route exact path="/orders">
           {isLoggedIn ? (
             <Order />
+          ) : (
+            <div className="login">
+              {" "}
+              <Login />{" "}
+            </div>
+          )}
+        </Route>
+        <Route exact path="/create-product">
+          {isLoggedIn ? (
+            <CreateProduct />
           ) : (
             <div className="login">
               {" "}

@@ -16,7 +16,7 @@ exports.carts = [
 exports.products = [
   {
     id: 1,
-    productName: "Denim jacket",
+    name: "Denim jacket",
     price: 100,
     image:
       "https://images.unsplash.com/photo-1516257984-b1b4d707412e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
@@ -24,7 +24,7 @@ exports.products = [
   },
   {
     id: 2,
-    productName: "Fit Mens T-Shirt",
+    name: "Fit Mens T-Shirt",
     price: 99,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h85/h8f/26840589565982/AW21IPT041_TEAL.jpg_230Wx334H",
@@ -32,7 +32,7 @@ exports.products = [
   },
   {
     id: 3,
-    productName: "Denim Knit Mens Shorts",
+    name: "Denim Knit Mens Shorts",
     price: 89,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/hf5/h1e/26911938871326/IN-FU014_MID_STONE_alt1.jpg_1088Wx1632H",
@@ -40,7 +40,7 @@ exports.products = [
   },
   {
     id: 4,
-    productName: "Crop Fit Mens Jeans",
+    name: "Crop Fit Mens Jeans",
     price: 170,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h5c/h8a/26912193085470/IN-FU07_DARK_INDIGO.jpg_230Wx334H",
@@ -48,7 +48,7 @@ exports.products = [
   },
   {
     id: 5,
-    productName: "Mens Casual Wear Shirt",
+    name: "Mens Casual Wear Shirt",
     price: 159,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h37/h04/27074115829790/S22SFWSLPF43152_BEIGE.jpg_230Wx334H",
@@ -59,7 +59,7 @@ exports.products = [
 exports.orders = [
   {
     id: 5,
-    productName: "Mens Casual Wear Shirt",
+    name: "Mens Casual Wear Shirt",
     price: 159,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h37/h04/27074115829790/S22SFWSLPF43152_BEIGE.jpg_230Wx334H",
@@ -70,7 +70,7 @@ exports.orders = [
   },
   {
     id: 4,
-    productName: "Crop Fit Mens Jeans",
+    name: "Crop Fit Mens Jeans",
     price: 170,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h5c/h8a/26912193085470/IN-FU07_DARK_INDIGO.jpg_230Wx334H",
@@ -81,7 +81,7 @@ exports.orders = [
   },
   {
     id: 2,
-    productName: "Fit Mens T-Shirt",
+    name: "Fit Mens T-Shirt",
     price: 99,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h85/h8f/26840589565982/AW21IPT041_TEAL.jpg_230Wx334H",
@@ -92,7 +92,7 @@ exports.orders = [
   },
   {
     id: 3,
-    productName: "Denim Knit Mens Shorts",
+    name: "Denim Knit Mens Shorts",
     price: 89,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/hf5/h1e/26911938871326/IN-FU014_MID_STONE_alt1.jpg_1088Wx1632H",
@@ -103,7 +103,7 @@ exports.orders = [
   },
   {
     id: 1,
-    productName: "Denim jacket",
+    name: "Denim jacket",
     price: 100,
     image:
       "https://images.unsplash.com/photo-1516257984-b1b4d707412e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
@@ -114,7 +114,7 @@ exports.orders = [
   },
   {
     id: 1,
-    productName: "Denim jacket",
+    name: "Denim jacket",
     price: 100,
     image:
       "https://images.unsplash.com/photo-1516257984-b1b4d707412e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
@@ -125,7 +125,7 @@ exports.orders = [
   },
   {
     id: 1,
-    productName: "Denim jacket",
+    name: "Denim jacket",
     price: 100,
     image:
       "https://images.unsplash.com/photo-1516257984-b1b4d707412e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
@@ -136,7 +136,7 @@ exports.orders = [
   },
   {
     id: 3,
-    productName: "Denim Knit Mens Shorts",
+    name: "Denim Knit Mens Shorts",
     price: 89,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/hf5/h1e/26911938871326/IN-FU014_MID_STONE_alt1.jpg_1088Wx1632H",
@@ -147,7 +147,7 @@ exports.orders = [
   },
   {
     id: 4,
-    productName: "Crop Fit Mens Jeans",
+    name: "Crop Fit Mens Jeans",
     price: 170,
     image:
       "https://sslimages.shoppersstop.com/sys-master/images/h5c/h8a/26912193085470/IN-FU07_DARK_INDIGO.jpg_230Wx334H",
@@ -158,7 +158,7 @@ exports.orders = [
   },
   {
     id: 1,
-    productName: "Denim jacket",
+    name: "Denim jacket",
     price: 100,
     image:
       "https://images.unsplash.com/photo-1516257984-b1b4d707412e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",

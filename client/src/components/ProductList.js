@@ -15,7 +15,15 @@ const ProductList = ({ products }) => {
     dispatch(addToCart(val))
       .then((res) => {
         if (res && res.data) {
-          toast(res.data, { type: "success" });
+          if(res.data === "product added to cart") {
+          toast(res.data, {
+            type: "success",
+          });
+        }else{
+          toast("product already added ", {
+            type: "success",
+          });
+        }
           setOpen(false);
           dispatch(getProductsList());
         } else {
@@ -40,7 +48,7 @@ const ProductList = ({ products }) => {
   };
 
   return (
-    <div className="container databg-light product-table cart-sec my-2">
+    <div className="container data bg-light product-table cart-sec my-2">
       <div
         className="row mx-0 align-items-stretch"
         style={{ placeContent: "center" }}
@@ -51,7 +59,7 @@ const ProductList = ({ products }) => {
               return (
                 <div key={index} className="col-md-6 col-sm-12 col-12 my-3">
                   <div
-                    className="card p-md-3 p-sm-2 p-2 bg-light h-100 d-flex flex-row shadow border-warning"
+                    className="card p-md-3 p-sm-2 p-2 bg-light h-100 d-flex flex-row shadow border-success"
                     onClick={() => handleProductSelection(product)}
                   >
                     <img
@@ -60,18 +68,15 @@ const ProductList = ({ products }) => {
                       alt="Card"
                     />
                     <div className="card-body text-start">
-                      <h4 className="card-title"> {product.productName} </h4>
+                      <h4 className="card-title"> {product.name} </h4>
                       <p className="card-text mb-2">
                         <strong>${product.price}</strong>
                       </p>
                       <p className="mb-0"> stock {product.stock}</p>
-                      <p
-                        className="text-primary"
-                      >
-                      </p>
+                      <p className="text-primary"></p>
                       <div className="">
                         <button
-                          className="btn btn-warning mt-2  text-white shadow"
+                          className="btn btn-success mt-2  text-white shadow"
                           style={{ textSize: "20px" }}
                           onClick={() => handleCart(product)}
                           disabled={product.stock < 1}

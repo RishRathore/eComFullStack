@@ -46,7 +46,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="register-form bg-light border border-warning shadow">
+    <div className="register-form bg-light border border-success shadow">
       <h4 className="text-center text-decoration-underline text-uppercase">
         Sign up
       </h4>
@@ -101,7 +101,7 @@ const SignUp = () => {
             </tbody>
           </table>
           <div style={{ textAlign: "center" }}>
-            <Button className="btn btn-warning text-white my-2" type="submit">
+            <Button className="btn btn-success text-white my-2" type="submit">
               Sign up
             </Button>
             {validation ? (
@@ -113,7 +113,7 @@ const SignUp = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "#ffc720",
+                color: "#00ff00",
                 fontWeight: "bold",
               }}
             >

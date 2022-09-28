@@ -4,17 +4,14 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 
 import Billing from "../components/Billing";
-import CartModel from "../components/CartModel";
 import { updateCart, removeCart } from "../actions";
 import { getAllCarts } from "../actions";
 
 const MyCart = () => {
-  const [modal, setModal] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
 
   const dispatch = useDispatch();
   let cartItem = useSelector((state) => state.data.cartItem);
-  const loginUser = useSelector((state) => state?.data?.userData);
 
   useEffect(() => {
     dispatch(getAllCarts());
@@ -28,11 +25,14 @@ const MyCart = () => {
     setSubTotal(total);
   }, [cartItem]);
 
-  const handleModal = () => setModal(!modal);
+  const handleOrder = () => {
+    //api for order.....
+    alert('Orderplaced');
+  };
 
   const handleRemoveItem = (product) => {
-    removeCart(product.id)
-      .then(() => {
+    dispatch(removeCart(product.id))
+      .then((res) => {
         setTimeout(() => {
           dispatch(getAllCarts());
         }, 1000);
@@ -44,15 +44,17 @@ const MyCart = () => {
 
   const handleQuantity = (data) => {
     if (data.flag === "dec") {
-     dispatch(updateCart({ id: data.val.id, quantity: data.val.quantity - 1 })).then(
-        () => {
-          setTimeout(() => {
-            dispatch(getAllCarts());
-          }, 500);
-        }
-      );
+      dispatch(
+        updateCart({ id: data.val.id, quantity: data.val.quantity - 1 })
+      ).then(() => {
+        setTimeout(() => {
+          dispatch(getAllCarts());
+        }, 500);
+      });
     } else {
-      dispatch(updateCart({ id: data.val.id, quantity: data.val.quantity + 1 })).then(() => {
+      dispatch(
+        updateCart({ id: data.val.id, quantity: data.val.quantity + 1 })
+      ).then(() => {
         setTimeout(() => {
           dispatch(getAllCarts());
         }, 500);
@@ -85,7 +87,7 @@ const MyCart = () => {
                     >
                       {cartItem.map((val, index) => (
                         <div key={index} className="col-md-6 col-6 h-100">
-                          <div className="card my-3 p-0 border-warning">
+                          <div className="card my-3 p-0 border-success">
                             <img
                               className="card-img-top border-bottom"
                               src={val.image}
@@ -94,17 +96,14 @@ const MyCart = () => {
                               alt="Card"
                             />
                             <div className="card-body px-0 py-2 text-center">
-                              <h4 className="card-title">
-                                {" "}
-                                {val.productName}{" "}
-                              </h4>
+                              <h4 className="card-title"> {val.name} </h4>
                               <p className="card-text mb-0">
                                 <strong>${val.price}</strong>
                               </p>
                               <div className="">
                                 <div className="quantity d-flex align-items-center justify-content-center">
                                   <button
-                                    className="btn"
+                                    className="btn border-success"
                                     disabled={val?.quantity === 1}
                                     onClick={(e) => {
                                       e.preventDefault();
@@ -113,12 +112,12 @@ const MyCart = () => {
                                   >
                                     -
                                   </button>
-                                  <p className="px-3 py-2 mb-0 bg-warning">
+                                  <p className="px-3 py-2 mb-0 text-success">
                                     {" "}
                                     {val?.quantity}
                                   </p>
                                   <button
-                                    className="btn "
+                                    className="btn border-success"
                                     disabled={val.stock <= val?.quantity}
                                     onClick={(e) => {
                                       e.preventDefault();
@@ -133,7 +132,7 @@ const MyCart = () => {
                                   style={{ textSize: "20px" }}
                                   onClick={() => handleRemoveItem(val)}
                                 >
-                                  X Remove
+                                  Remove
                                 </button>
                               </div>
                             </div>
@@ -146,7 +145,7 @@ const MyCart = () => {
                 <Billing
                   cartItem={cartItem}
                   subTotal={subTotal}
-                  handleModal={handleModal}
+                  handleOrder={handleOrder}
                 />
               </div>
             ) : (
@@ -159,14 +158,6 @@ const MyCart = () => {
           </div>
         </div>
       </div>
-      {modal && (
-        <CartModel
-          handleModal={handleModal}
-          modal={modal}
-          total={subTotal}
-          user={loginUser}
-        />
-      )}
     </>
   );
 };

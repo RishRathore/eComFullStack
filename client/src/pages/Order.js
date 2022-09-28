@@ -19,7 +19,7 @@ const Order = () => {
       <div className="product-table">
         <Table striped bordered hover variant="light">
           <thead>
-            <tr className="border-warning">
+            <tr className="border-success">
               <th scope="col"> No.</th>
               <th scope="col">Img</th>
               <th scope="col">Product</th>
@@ -28,10 +28,10 @@ const Order = () => {
               <th scope="col">Date</th>
             </tr>
           </thead>
-          <tbody className="border-warning">
+          <tbody className="border-success">
             {orderList &&
               orderList?.map((item, i) => (
-                <tr key={i} className="border-warning">
+                <tr key={i} className="border-success">
                   <td>{i + 1}</td>
                   <td>
                     <img
@@ -42,7 +42,7 @@ const Order = () => {
                       alt="Card"
                     />
                   </td>
-                  <td>{item?.productName}</td>
+                  <td>{item?.name}</td>
                   <td>
                     {item?.quantity} * {item?.price}
                   </td>

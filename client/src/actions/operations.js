@@ -67,6 +67,30 @@ export const getProductsList = () => (dispatch) => {
     });
 };
 
+export const createProduct = (data) => (dispatch) => {
+  return axios
+    .post(`${baseURL}/addProduct`, data)
+    .then((res) => {
+      res && dispatch(getProductsList());
+      toast("Product added", { type: "success" });
+    })
+    .catch((error) => {
+      console.log("error", error);
+      toast("Something went wrong!", { type: "error" });
+    });
+};
+
+export const getSearchProductsList = (data) => (dispatch) => {
+  return axios
+    .get(`${baseURL}/products?name=${data}`)
+    .then((res) => {
+      dispatch(actions.getProductDetails(res?.data));
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};
+
 //orders
 
 export const getordersList = () => (dispatch) => {

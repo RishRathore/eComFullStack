@@ -21,11 +21,14 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.addProduct = async (req, res) => {
+  console.log("addproduct ",req.body)
+  console.log("req.file", req.file)
   try {
     const product = new Product({
       ...req.body,
       image: fs.readFileSync(path.join(__dirname, '../assets/images/') + req.file.filename)
     })
+    console.log("--------------------------product",product)
     await product.save()
     console.log('product', product)
 

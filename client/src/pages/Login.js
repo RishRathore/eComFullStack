@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form bg-light border border-warning">
+    <div className="login-form bg-light border border-success">
       <h4
         className="text-center text-decoration-underLine text-uppercase"
         style={{ textAlign: "center" }}
@@ -65,7 +65,7 @@ const Login = () => {
         </table>
         <div style={{ textAlign: "center" }}>
           <div style={{ margin: "10px" }}>
-            <Button className="btn btn-warning text-white" type="submit">
+            <Button className="btn btn-success text-white" type="submit">
               Login
             </Button>
           </div>
@@ -73,7 +73,7 @@ const Login = () => {
             to="/signup"
             style={{
               textDecoration: "none",
-              color: "#ffc720",
+              color: "#00ff00",
               fontweight: "bold",
             }}
           >

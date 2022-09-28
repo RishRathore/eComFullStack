@@ -10,10 +10,10 @@ export default function ProductModal({
 }) {
   return (
     <Modal show={open} onHide={handleModal}>
-      <Modal.Header className="bg-warning text-light" closeButton>
+      <Modal.Header className="bg-secondary text-light" closeButton>
         <Modal.Title>
           {" "}
-          <strong> {itemList.productName} </strong>{" "}
+          <strong> {itemList.name} </strong>{" "}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -39,7 +39,7 @@ export default function ProductModal({
       </Modal.Body>
       <Modal.Footer className="bg-light">
         <button
-          className="btn btn-warning mt-2"
+          className="btn btn-success mt-2"
           style={{ textSize: "20px" }}
           onClick={() => handleCart(itemList)}
           disabled={itemList.stock < 1}
