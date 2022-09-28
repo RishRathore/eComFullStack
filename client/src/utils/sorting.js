@@ -20,3 +20,7 @@ export const sortProducts = (products, sortBy) => {
   }
   return sortedProducts;
 };
+
+export const base64String = (bufferValue) => btoa(new Uint8Array(bufferValue).reduce(function (data, byte) {
+  return data + String.fromCharCode(byte);
+}, ''))

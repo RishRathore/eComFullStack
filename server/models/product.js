@@ -20,8 +20,7 @@ const productSchema = new Schema({
     type: String,
   },
   image: {
-    data: Buffer,
-    contentType: String
+    type: Buffer,
   },
 }, {
   timestamps: [{ createdAt: 'created_at', updatedAt: 'updated_at' }],

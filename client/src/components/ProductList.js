@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ProductModal from "./ProductModal";
 import { addToCart, getProductsList } from "../actions";
+import { base64String } from "../utils/sorting";
 
 const ProductList = ({ products }) => {
   const dispatch = useDispatch();
@@ -65,7 +66,8 @@ const ProductList = ({ products }) => {
                   >
                     <img
                       className="card-img-top w-50"
-                      src={product.image}
+                      // src={product.image}
+                      src={`data:image/png;base64,${base64String(product?.image?.data)}`}
                       alt="Card"
                     />
                     <div className="card-body text-start">
@@ -91,6 +93,7 @@ const ProductList = ({ products }) => {
                 </div>
               );
             })}
+        
           </div>
         </div>{" "}
       </div>
