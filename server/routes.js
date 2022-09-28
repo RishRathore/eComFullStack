@@ -16,9 +16,9 @@ app.post('/addProduct', middlewares.upload, product.addProduct);
 
 app.get("/orders", middlewares.verifyToken, order.getOrders);
 
-app.get('/carts', cart.getCartList)
-app.post('/cart/:id', cart.addToCart)
-app.delete('/cart', cart.flushCart)
+app.get('/carts', middlewares.verifyToken, cart.getCartList)
+app.post('/cart/:id', middlewares.verifyToken, cart.addToCart)
+app.delete('/cart', middlewares.verifyToken, cart.flushCart)
 app.patch('/cart/:id', cart.updateCart)
 
 

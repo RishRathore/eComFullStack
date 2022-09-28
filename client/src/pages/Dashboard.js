@@ -4,10 +4,7 @@ import { Dropdown, SplitButton } from "react-bootstrap";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import {
-  getProductsList,
-  getSearchProductsList,
-} from "../actions";
+import { getProductsList, getSearchProductsList } from "../actions";
 import ProductList from "../components/ProductList";
 import { sortProducts } from "../utils/sorting";
 

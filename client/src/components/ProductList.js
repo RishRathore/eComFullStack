@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ProductModal from "./ProductModal";
 import { addToCart, getProductsList } from "../actions";
@@ -10,20 +10,21 @@ const ProductList = ({ products }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [itemList, setItemList] = useState(null);
+  const loginUser = useSelector((state) => state?.data?.userData);
 
   const handleCart = (val) => {
-    dispatch(addToCart(val))
+    dispatch(addToCart(val,loginUser.id))
       .then((res) => {
         if (res && res.data) {
-          if(res.data === "product added to cart") {
-          toast(res.data, {
-            type: "success",
-          });
-        }else{
-          toast("product already added ", {
-            type: "success",
-          });
-        }
+          if (res.data === "product added to cart") {
+            toast(res.data, {
+              type: "success",
+            });
+          } else {
+            toast("product already added ", {
+              type: "success",
+            });
+          }
           setOpen(false);
           dispatch(getProductsList());
         } else {
