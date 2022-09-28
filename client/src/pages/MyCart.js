@@ -31,8 +31,8 @@ const MyCart = () => {
   };
 
   const handleRemoveItem = (product) => {
-    dispatch(removeCart(product.id))
-      .then((res) => {
+    removeCart(product._id)
+      .then(() => {
         setTimeout(() => {
           dispatch(getAllCarts());
         }, 1000);
@@ -43,23 +43,16 @@ const MyCart = () => {
   };
 
   const handleQuantity = (data) => {
-    if (data.flag === "dec") {
-      dispatch(
-        updateCart({ id: data.val.id, quantity: data.val.quantity - 1 })
-      ).then(() => {
-        setTimeout(() => {
-          dispatch(getAllCarts());
-        }, 500);
-      });
-    } else {
-      dispatch(
-        updateCart({ id: data.val.id, quantity: data.val.quantity + 1 })
-      ).then(() => {
-        setTimeout(() => {
-          dispatch(getAllCarts());
-        }, 500);
-      });
+    const params = {
+      id: data.val._id,
+      productId: data.val.product_id,
+      operationType: data.flag === "dec"? 'decr' : 'incr',
     }
+
+    dispatch(updateCart(params))
+    .then(() => {
+      setTimeout(() => { dispatch(getAllCarts());}, 500);
+    });
   };
 
   return (

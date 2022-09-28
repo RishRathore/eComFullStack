@@ -19,7 +19,7 @@ export const getAllCarts = () => (dispatch) => {
     });
 };
 
-export const addToCart = (data) => (dispatch) => {
+export const addToCart = (data) => () => {
   return axios
     .post(`${baseURL}/cart/${data.id}`)
     .then((res) => {
@@ -30,7 +30,7 @@ export const addToCart = (data) => (dispatch) => {
     });
 };
 
-export const removeCart = (id) => (dispatch) => {
+export const removeCart = (id) => () => {
   return axios
     .delete(`${baseURL}/cart`, id)
     .then((res) => {
@@ -42,10 +42,10 @@ export const removeCart = (id) => (dispatch) => {
 };
 
 export const updateCart =
-  ({ id, quantity }) =>
+  ({ id, operationType, productId }) =>
   (dispatch) => {
     return axios
-      .patch(`${baseURL}/cart/${id}`, { quantity })
+      .patch(`${baseURL}/cart/${id}`, { operationType, productId })
       .then((res) => {
         return res;
       })
