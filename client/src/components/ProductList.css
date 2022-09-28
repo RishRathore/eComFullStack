@@ -1,0 +1,41 @@
+.card-img-top {
+    height: 165px;
+    object-fit: cover;
+    cursor: pointer;
+    width: auto;
+  }
+  .card:hover {
+    opacity: 0.9;
+    transform: translateY(5px);
+    box-shadow: 0px 2px 8px black;
+  }
+  
+  .cart-product .product-table {
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  @media (max-width:1024px) {
+    .card-img-top {
+      height: auto;
+    }
+    .cart-product .product-table {
+      height: auto;
+    }
+  }
+  
+  .modal-img {
+    width: 400px;
+    height: 150px;
+    object-fit: contain;
+  }
+  
+  .modal-body {
+    padding: 0 10px;
+    background-size: cover;
+    background-color: rgba(214, 202, 202, 0.63);
+  }
+  
+  
+  
+  

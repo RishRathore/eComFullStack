@@ -1,0 +1,26 @@
+.card-img-top {
+  height: 165px;
+  object-fit: contain;
+}
+
+.card:hover {
+  opacity: 0.9;
+  transform: translateY(5px);
+  box-shadow: 0px 2px 8px black;
+}
+
+.quantity button {
+  padding: 0.35rem 0.5rem;
+  line-height: 1;
+  border-radius: 0;
+}
+.quantity input{
+  width: 61px;
+  border: 1px solid #0d6efd;
+  height: 28px;
+}
+@media (max-width:1024px) {
+  .card-img-top {
+    height: 100px;
+  }
+}

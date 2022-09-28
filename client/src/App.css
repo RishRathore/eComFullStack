@@ -1,0 +1,164 @@
+.App{
+    height: 100%;
+    width: 100%;
+}
+.login{
+    width: 100%;
+display: inline-flex;
+margin-top: 10%;
+justify-content: center;
+
+} 
+.register{
+    width: 100%;
+    display: inline-flex;
+    margin-top: 10%;
+    justify-content: center;
+}
+
+.register input{
+    height: 2.5rem;
+   border-radius: 10px;
+   text-align: center;
+   margin: 10px;
+   
+}
+.label{
+    padding: 20px;
+}
+.add-product-form{
+    text-align: center;
+    margin:10px;
+}
+.add-product-form input{
+    height: 2.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+}
+.Add-Card-form input{
+    height: 2.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+
+}
+.login-form input{
+    height: 2.5rem;
+   border-radius: 10px;
+   text-align: center;
+   margin: 10px;
+  
+}
+.register-form{
+background-color: rgba(128, 128, 128, 0.548);
+padding: 30px;
+border-radius: 10px;
+}
+.login-form{
+background-color: rgba(128, 128, 128, 0.548);
+padding: 30px;
+border-radius: 10px;
+
+}
+.Add-product-modal{
+    text-align: end;
+    padding-bottom: 10px;
+}
+.navbar-fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    right: 0;
+}
+
+.card-img-top {
+  height: 165px;
+  object-fit: contain;
+}
+.quantity button {
+  padding: 0.35rem 0.5rem;
+  line-height: 1;
+  border-radius: 0;
+}
+.quantity input{
+  width: 61px;
+  border: 1px solid #0d6efd;
+  height: 28px;
+}
+
+.logo-icon {
+  height: 30px;
+  width: 30px;
+}
+.modal-body{
+  background-color: white !important;
+}
+.main-nav{
+  width: 220px;
+  
+}
+.nav-link.active {
+  font-weight: bold;
+  text-decoration: underline !important;
+}
+.cart-sec {
+  padding-left: 110px !important;
+  max-width: 100% !important;
+}
+@media (max-width:1024px) {
+  .card-img-top {
+    height: 100px;
+  }
+}
+
+.card-img-top {
+  width: auto !important;
+  background-color: #fff;
+  height: 165px;
+  object-fit: cover !important;
+}
+
+.cart-product .product-table {
+  height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+@media (max-width:1024px) {
+  .card-img-top {
+    height: auto;
+  }
+  .cart-product .product-table {
+    height: auto;
+  }
+}
+
+.Toastify__toast-container--top-right{
+  top :4em !important;
+}
+
+.card:hover {
+  opacity: 0.9;
+  transform: translateY(5px);
+  box-shadow: 0px 2px 8px black;
+}
+
+.cart-product .product-table {
+  height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal-img {
+  width: 400px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.modal-body {
+  padding: 0 10px;
+  background-size: cover;
+  background-color: rgba(214, 202, 202, 0.63);
+}
+
