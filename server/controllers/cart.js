@@ -81,8 +81,7 @@ const updateProductStock = async (prodId, operationType) => {
 
     if (product && product.length > 0) {
       const stock = product[0].stock;
-      const qty = operationType === 'incr' ? stock - 1 : quantity + 1;
-      const updatedStock = stock - qty;
+      const updatedStock = operationType === 'incr' ? stock - 1 : quantity + 1;
 
       await Product.updateOne(
         { _id: prodId },
