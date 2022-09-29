@@ -5,6 +5,8 @@ const path = require("path");
 const { keys } = require("./config");
 
 exports.verifyToken = async (req, res, next) => {
+  console.log("verifyToken", req.headers.authorization);
+  
   const authorization = req.headers.authorization;
   const jwtSecretKey = keys.JWT_SECRET_KEY;
   const token = authorization.split(" ")[1];

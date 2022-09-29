@@ -27,7 +27,6 @@ exports.addProduct = async (req, res) => {
       image: fs.readFileSync(path.join(__dirname, '../assets/images/') + req.file.filename)
     })
     await product.save()
-    console.log('product', product)
 
     res.status(200)
     res.send({ item: product, msg: "product added successfully" })

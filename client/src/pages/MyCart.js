@@ -6,13 +6,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import Billing from "../components/Billing";
 import { updateCart, removeCart, placeOrder } from "../actions";
 import { getAllCarts } from "../actions";
+import { base64String } from "../utils/sorting";
 
 const MyCart = () => {
   const [subTotal, setSubTotal] = useState(0);
 
   const dispatch = useDispatch();
   let cartItem = useSelector((state) => state.data.cartItem);
-
+  console.log(cartItem);
   useEffect(() => {
     dispatch(getAllCarts());
   }, [dispatch]);
@@ -83,15 +84,15 @@ const MyCart = () => {
                           <div className="card my-3 p-0 border-success">
                             <img
                               className="card-img-top border-bottom"
-                              src={val.image}
+                              src={`data:image/png;base64,${base64String(val?.product_id?.image?.data)}`}
                               height={100}
                               width={50}
                               alt="Card"
                             />
                             <div className="card-body px-0 py-2 text-center">
-                              <h4 className="card-title"> {val.name} </h4>
+                              <h4 className="card-title"> {val.product_id?.name} </h4>
                               <p className="card-text mb-0">
-                                <strong>${val.price}</strong>
+                                <strong>${val?.product_id?.price}</strong>
                               </p>
                               <div className="">
                                 <div className="quantity d-flex align-items-center justify-content-center">

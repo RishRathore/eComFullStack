@@ -8,8 +8,8 @@ const Billing = ({ cartItem, subTotal,handleOrder }) => (
           <tr className="border-success">
             <th scope="col">Product</th>
             <th scope="col-2">Qty</th>
-            <th scope="col-2">Rate</th>
-            <th scope="col-2">Discount %</th>
+            <th scope="col-2">Price</th>
+            <th scope="col-2">Dis. %</th>
             
             <th scope="col">Total</th>
           </tr>
@@ -18,9 +18,9 @@ const Billing = ({ cartItem, subTotal,handleOrder }) => (
           {cartItem &&
             cartItem.map((item, i) => (
             <tr key={i}  className="border-success">
-                <td>{item.name}</td>
+                <td>{item.product_id?.name}</td>
                 <td>{item.quantity} </td>
-                <td>{item.price}</td>
+                <td>{item.product_id?.price}</td>
                 <td> </td>
                 <td>$ {item.total_price}</td>
               </tr>)

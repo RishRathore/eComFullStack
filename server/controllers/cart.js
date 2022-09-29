@@ -4,7 +4,7 @@ const Product = require("../models/product")
 exports.addToCart = async (req, res) => {
   const { id: productId } = req.params
   const { userId } = req.body
-
+console.log("req: controller ", req.params, req.body )
   try {
     const fillCarts = await Cart.find({ product_id: productId })
     if (fillCarts.length > 0) {
