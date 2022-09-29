@@ -15,7 +15,7 @@ const Dashboard = () => {
   const products = useSelector((state) => state.data.products);
 
   useEffect(() => {
-    dispatch(getProductsList());
+   dispatch(getProductsList());
   }, [dispatch]);
 
   const handleSelect = (e) => {
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   useMemo(() => {
     sortProducts(products, dropdownValue);
-  }, [dropdownValue,products]);
+  }, [dropdownValue, products]);
 
   const inputChange = (e) => {
     const { value } = e.target;
@@ -90,7 +90,9 @@ const Dashboard = () => {
                   id="dropdown-menu-align-responsive-2"
                   onSelect={handleSelect}
                 >
-                  <Dropdown.Item eventKey="nameAsc">Name Ascending</Dropdown.Item>
+                  <Dropdown.Item eventKey="nameAsc">
+                    Name Ascending
+                  </Dropdown.Item>
                   <Dropdown.Item eventKey="nameDesc">
                     Name Descending
                   </Dropdown.Item>
@@ -105,18 +107,14 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-          <div className="col-md-3 my-2 text-center">
-            <Link to={"/create-product"}>
-              <Button
-                className="bg-success"
-                style={{ margin: "auto" }}
-              >
-                {" "}
-                Create Product{" "}
-              </Button>{" "}
-            </Link>
-          </div>
-
+        <div className="col-md-3 my-2 text-center">
+          <Link to={"/create-product"}>
+            <Button className="bg-success" style={{ margin: "auto" }}>
+              {" "}
+              Create Product{" "}
+            </Button>{" "}
+          </Link>
+        </div>
       </div>
       <ProductList products={products} />
     </div>

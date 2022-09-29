@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 
 const Billing = ({ billingData, subTotal,handleOrder }) => (
-  <div className="col-md-5 col-sm-12 col-12 my-3 ms-3 billing">
+  <div className="col-md-6 col-sm-12 col-12 my-3 ms-3 billing">
     <div className="product-table">
       <Table bordered hover>
         <thead>
