@@ -80,11 +80,16 @@ exports.updateCart = async (req, res) => {
   }
 }
 
-exports.flushCart = async (req, res) => {
+exports.removeFromCart = async (req, res) => {
   const { id } = req.params
+  const { productId } = req.body
+
   try {
     if (id) {
-      await Cart.deleteOne({ _id: id })
+      await Cart.updateOne(
+        { _id : id },
+        { $pull : { "cartProducts" : { "product_id": productId }}}
+      )
       res.status(200)
       res.send("removed")
     }

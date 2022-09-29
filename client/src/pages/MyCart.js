@@ -49,7 +49,8 @@ const MyCart = () => {
   };
 
   const handleRemoveItem = (product) => {
-    dispatch(removeCart(product._id))
+    const cartId = cartItem[0]?._id
+    dispatch(removeCart(cartId, product._id))
       .then(() => {
         setTimeout(() => {
           dispatch(getMyCart(userId));
