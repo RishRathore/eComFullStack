@@ -49,61 +49,76 @@ const Dashboard = () => {
 
   return (
     <div className="container" style={{ marginTop: "0", maxWidth: "100%" }}>
-      <div
-        className="row my-2 mx-0 float-end"
-        style={{ placeContent: "center" }}
-      >
-        <div className="mt-2">
-          <SplitButton
-            align={{ lg: "end" }}
-            title="Sort by"
-            id="dropdown-menu-align-responsive-2"
-            onSelect={handleSelect}
-          >
-            <Dropdown.Item eventKey="nameAsc">Name Ascending</Dropdown.Item>
-            <Dropdown.Item eventKey="nameDesc">Name Descending</Dropdown.Item>
-            <Dropdown.Item eventKey="priceAsc">Price Ascending</Dropdown.Item>
-            <Dropdown.Item eventKey="priceDesc">Price Descending</Dropdown.Item>
-          </SplitButton>
+      <div className="row align-items-center justify-content-end">
+        <div className="col-md-6 mx-0 d-flex align-items-center justify-content-center">
+          <div className="row mx-0 h-100 my-3">
+            <InputGroup className="col-6 my-2">
+              <FormControl
+                placeholder="Search"
+                aria-label="Search"
+                value={inputValue}
+                onChange={inputChange}
+                aria-describedby="basic-addon2"
+              />
+              <Button
+                variant="outline-success"
+                id="button-addon2"
+                onClick={onSearchProducts}
+              >
+                Search
+              </Button>
+              <Button
+                className="mx-2"
+                variant="outline-success"
+                id="button-reload"
+                onClick={onReload}
+              >
+                Refresh
+              </Button>
+            </InputGroup>
+          </div>
+
+          <div className="mx-container">
+            <div
+              className="row my-2 mx-0 float-end"
+              // style={{ placeContent: "center" }}
+            >
+              <div>
+                <SplitButton
+                  align={{ lg: "end" }}
+                  title="Sort by"
+                  id="dropdown-menu-align-responsive-2"
+                  onSelect={handleSelect}
+                >
+                  <Dropdown.Item eventKey="nameAsc">Name Ascending</Dropdown.Item>
+                  <Dropdown.Item eventKey="nameDesc">
+                    Name Descending
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="priceAsc">
+                    Price Ascending
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="priceDesc">
+                    Price Descending
+                  </Dropdown.Item>
+                </SplitButton>
+              </div>
+            </div>
+          </div>
         </div>
+          <div className="col-md-3 my-2 text-center">
+            <Link to={"/create-product"}>
+              <Button
+                className="bg-success"
+                style={{ margin: "auto" }}
+              >
+                {" "}
+                Create Product{" "}
+              </Button>{" "}
+            </Link>
+          </div>
+
       </div>
-      <div className="row h-100 my-3 justify-content-center align-items-center">
-        <InputGroup className="col-6  my-2 w-50">
-          <FormControl
-            placeholder="Search"
-            aria-label="Search"
-            value={inputValue}
-            onChange={inputChange}
-            aria-describedby="basic-addon2"
-          />
-          <Button
-            variant="outline-success"
-            id="button-addon2"
-            onClick={onSearchProducts}
-          >
-            Search
-          </Button>
-          <Button
-            className="mx-2"
-            variant="outline-success"
-            id="button-reload"
-            onClick={onReload}
-          >
-            Reload
-          </Button>
-        </InputGroup>
-      </div>
-      <div className="row my-2">
-        <Link to={"/create-product"}>
-          <Button
-            className="bg-success"
-            style={{ float: "right", margin: "auto" }}
-          >
-            {" "}
-            Create Product{" "}
-          </Button>{" "}
-        </Link>
-      </div>
+
       <ProductList products={products} />
     </div>
   );

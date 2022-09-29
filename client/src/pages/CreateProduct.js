@@ -42,6 +42,7 @@ function CreateProduct() {
 
           dispatch(createProduct(formData));
           resetForm();
+          setImgFile("")
         }}
         initialValues={{
           name: "",

@@ -22,10 +22,9 @@ const NavBar = () => {
   const isSignIn = useSelector((state) => state?.data?.isLoggedIn);
 
   return (
-    <div className="navbar-fixed main-nav bg-secondary h-100">
-      <Navbar className="flex-wrap">
-        <Container>
-          <Navbar.Brand href="/" className="text-white d-flex align-items-center  border-bottom px-0 py-3 mx-0 my-2 w-100">
+    <div className="">
+      <Navbar bg="secondary" className="flex-wrap px-4">
+          <Navbar.Brand href="/" className="text-white d-flex align-items-center  border-bottom px-0 py-3 mx-0 my-2">
           <div className="bg-white text-warning rounded-circle d-flex align-items-center justify-content-center logo-icon"> 
           <FaCartPlus />
           </div>
@@ -34,12 +33,12 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse
             id="basic-navbar-nav"
-            className="justify-content-start text-capitalize"
+            className="text-capitalize"
           >
-            <Nav className="flex-column w-100 py-2">
+            <Nav className="justify-content-end  w-100 py-2">
               {isSignIn && (
                 <>
-                <Nav.Link className="text-white px-0 py-2">
+                <Nav.Link className="text-white py-2">
                     <div
                       style={{ textDecoration: "none" }}
                     >
@@ -52,7 +51,7 @@ const NavBar = () => {
                     as={Link}
                     to="/"
                     onClick={()=> setActive("/")}
-                    className={activeTab === "/" ? "text-white px-0 py-2 active" : "text-white px-0 py-2" }
+                    className={activeTab === "/" ? "text-white py-2 active" : "text-white py-2" }
                     style={{ textDecoration: "none" }}
                   >
                    <FaHome />
@@ -63,7 +62,7 @@ const NavBar = () => {
                     as={Link}
                     to="/orders"
                     onClick={() => setActive("/orders")}
-                    className={activeTab === "/orders" ? "text-white px-0 py-2 active" : "text-white px-0 py-2" }
+                    className={activeTab === "/orders" ? "text-white py-2 active" : "text-white py-2" }
                     style={{ textDecoration: "none" }}
                   ><FaBoxes />
                     <span className="ms-1">My Orders{" "} </span>
@@ -73,7 +72,7 @@ const NavBar = () => {
                     as={Link}
                     to="/cart"
                     onClick={() => setActive("/cart")}
-                    className={activeTab === "/cart" ? "text-white px-0 py-2 active" : "text-white px-0 py-2" }
+                    className={activeTab === "/cart" ? "text-white py-2 active" : "text-white py-2" }
                     style={{ textDecoration: "none" }}
                   >
                     <FaShoppingCart /> <span className="ms-1">My Cart{" "}</span>
@@ -84,7 +83,7 @@ const NavBar = () => {
               {!isSignIn && (
                 <Nav.Link
                 onClick={() => setActive("/register")}
-                className={activeTab === "/register" ? "text-white px-0 py-2 active" : "text-white px-0 py-2" }
+                className={activeTab === "/register" ? "text-white py-2 active" : "text-white py-2" }
                   as={Link}
                   to="/signup"
                   style={{ textDecoration: "none" }}
@@ -99,7 +98,7 @@ const NavBar = () => {
                   as={Link}
                   to="/login"
                   onClick={() => setActive("/login")}
-                  className={activeTab === "/login" ? "text-white px-0 py-2 active" : "text-white px-0 py-2" }
+                  className={activeTab === "/login" ? "text-white py-2 active" : "text-white py-2" }
                   style={{ textDecoration: "none" }}
                 >
                   <FaSignInAlt />
@@ -107,7 +106,7 @@ const NavBar = () => {
                 </Nav.Link>
               ) : (
                 <Nav.Link
-                  className="text-white px-0 py-2 "
+                  className="text-white py-2 "
                   onClick={(e) => handleLogout(e)}
                   style={{ textDecoration: "none" }}
                 >
@@ -117,7 +116,6 @@ const NavBar = () => {
               )}
             </Nav>
           </Navbar.Collapse>
-        </Container>
       </Navbar>
     </div>
   );

@@ -14,27 +14,26 @@ const ProductList = ({ products }) => {
   const loginUser = useSelector((state) => state?.data?.userData);
 
   const handleCart = (val) => {
-    dispatch(addToCart(val,loginUser.id))
+    dispatch(addToCart(val, loginUser.id))
       .then((res) => {
         if (res && res.data) {
-          if (res.data === "product added to cart") {
+          if (res.status === 403) {
             toast(res.data, {
               type: "success",
             });
           } else {
-            toast("product already added ", {
+            toast(res.data, {
               type: "success",
             });
           }
           setOpen(false);
           dispatch(getProductsList());
         } else {
-          toast("something went wrong!", { type: "error" });
           setOpen(false);
         }
       })
       .catch((err) => {
-        toast("something went wrong!", { type: "error" });
+        err && toast("something went wrong!", { type: "error" });
       })
       .catch((err) => {
         console.log(err);
@@ -50,12 +49,12 @@ const ProductList = ({ products }) => {
   };
 
   return (
-    <div className="container data bg-light product-table cart-sec my-2">
+    <div className="container data bg-light product-table cart-sec my-2 px-0">
       <div
         className="row mx-0 align-items-stretch"
         style={{ placeContent: "center" }}
       >
-        <div className="col-md-11 ms-auto">
+        <div className="col-md-11 mx-auto">
           <div className="row mx-0">
             {products?.map((product, index) => {
               return (

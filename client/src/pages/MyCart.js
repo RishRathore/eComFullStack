@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 
 import Billing from "../components/Billing";
-import { updateCart, removeCart } from "../actions";
+import { updateCart, removeCart, placeOrder } from "../actions";
 import { getAllCarts } from "../actions";
 
 const MyCart = () => {
@@ -26,12 +26,12 @@ const MyCart = () => {
   }, [cartItem]);
 
   const handleOrder = () => {
-    //api for order.....
+    // dispatch(placeOrder())
     alert('Orderplaced');
   };
 
   const handleRemoveItem = (product) => {
-    removeCart(product._id)
+    dispatch(removeCart(product._id))
       .then(() => {
         setTimeout(() => {
           dispatch(getAllCarts());

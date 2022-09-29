@@ -104,6 +104,17 @@ export const getordersList = () => (dispatch) => {
     });
 };
 
+export const placeOrder = () => (dispatch) => {
+  return axios
+    .get(`${baseURL}/place-orders`)
+    .then((res) => {
+      res && dispatch(getordersList());
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};
+
 //user
 
 export const userLogin = (data) => (dispatch) => {
