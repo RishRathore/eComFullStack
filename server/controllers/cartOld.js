@@ -27,10 +27,6 @@ exports.addToBag = async (req, res) => {
         }
       });
       res.status(200);
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
       res.send(carts);
     } else {
       try {
@@ -41,17 +37,9 @@ exports.addToBag = async (req, res) => {
           quantity: 1,
         });
 
-        // res.cookie("jwtoken", token, {
-        //   expiresIn: "1d",
-        //   httpOnly: true,
-        // });
         res.status(200);
         res.send("product added into cart");
       } catch (err) {
-        // res.cookie("jwtoken", token, {
-        //   expiresIn: "1d",
-        //   httpOnly: true,
-        // });
         res.status(400);
         res.send(err);
       }
@@ -60,7 +48,6 @@ exports.addToBag = async (req, res) => {
 };
 
 exports.getBagList = async (req, res) => {
-  console.log("req.cookies==========",req.cookies)
   let jwtSecretKey = keys.JWT_SECRET_KEY;
   const token = jwt.sign(req.body, jwtSecretKey, { expiresIn: "3h" });
   let cartlist = [];
@@ -73,10 +60,6 @@ exports.getBagList = async (req, res) => {
         total_price: product.price * item.quantity,
       });
     });
-    // res.cookie("jwtoken", token, {
-    //   expiresIn: "1d",
-    //   httpOnly: true,
-    // });
     res.status(200);
     res.send(cartlist);
   } catch (err) {
@@ -113,20 +96,12 @@ exports.updateBag = async (req, res) => {
           total_price: product.price * item.quantity,
         });
       });
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
       res.status(200);
       res.send(cartlist);
     } catch (err) {
       res.status(400);
       console.log("err", err);
     }
-    // res.cookie("jwtoken", token, {
-    //   expiresIn: "1d",
-    //   httpOnly: true,
-    // });
     res.status(200);
     res.send(cartlist);
   } catch (err) {
@@ -156,17 +131,10 @@ exports.removeBag = async (req, res) => {
   try {
     if (id) {
       const filterCarts = carts.filter((item) => item.product_id != id);
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
+      
       res.status(200);
       res.send("product has been removed from the cart");
     } else {
-      // res.cookie("jwtoken", token, {
-      //   expiresIn: "1d",
-      //   httpOnly: true,
-      // });
       res.status(200);
       res.send("");
     }

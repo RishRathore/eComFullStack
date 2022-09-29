@@ -31,9 +31,6 @@ exports.placeOrder = async (req, res) => {
   const { uid: userId } = req.params
   const { cartId, totalBill, itemsCount } = req.body
 
-  console.log('params', userId);
-  console.log(cartId, totalBill, itemsCount)
-
   try {
       const order = new Order({
         cart_id: cartId,
