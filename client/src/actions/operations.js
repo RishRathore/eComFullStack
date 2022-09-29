@@ -21,7 +21,7 @@ export const getMyCart = (userId) => (dispatch) => {
 
 export const addToCart = (data,userId) => () => {
   return axios
-    .post(`${baseURL}/cart/${data._id}`, { userId: userId })
+    .post(`${baseURL}/cart/${userId}`, { productId: data._id })
     .then((res) => {
       return res;
     })

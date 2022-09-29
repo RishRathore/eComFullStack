@@ -7,12 +7,14 @@ const { keys } = require("./configs/index");
 exports.verifyToken = async (req, res, next) => {
   const authorization = req.headers.authorization
   const jwtSecretKey = keys.JWT_SECRET_KEY;
-  const token = authorization.split(" ")[1]
+  const token = authorization?.split(" ")[1]
+  
   if (token) {
     try {
       jwt.verify(token, jwtSecretKey);
       next()
     } catch (error) {
+      res.status(401)
       res.json({
         login: false,
         data: error
