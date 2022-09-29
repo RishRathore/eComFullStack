@@ -8,7 +8,7 @@ const user = require("./controllers/user");
 const order = require("./controllers/order");
 
 app.post("/signup", user.signUp);
-app.post("/login", user.userLogin);
+app.post("/login", user.login);
 app.get("/user", user.getUser);
 
 app.get("/products", product.getProducts);

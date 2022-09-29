@@ -15,6 +15,6 @@ mongoose.connect(mongodb_uri, {
   })
   .then(() => {
     console.log('database connected !!')
-    seedDB()
+    seedDB() // insert some static products and users
   })
   .catch(error => console.log('db connection failed', error));

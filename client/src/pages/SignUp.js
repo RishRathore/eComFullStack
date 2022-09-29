@@ -15,12 +15,9 @@ const SignUp = () => {
     password: "",
     cpassword: "",
   });
-
   const [validation, setValidation] = useState(false);
-
   const history = useHistory();
   const dispatch = useDispatch();
-  toast.configure();
 
   const handleChange = (e) => {
     setValidation(false);
@@ -32,10 +29,10 @@ const SignUp = () => {
     if (newUser?.password === newUser?.cpassword) {
       dispatch(userSignup(newUser))
         .then((res) => {
-          toast("registration successfully!", { type: "success" });
-          setTimeout(() => {
-            history.push("/login");
-          }, 500);
+          if (res) {
+            toast("registration successfully!", { type: "success" });
+            setTimeout(() => { history.push("/login") }, 1000);
+          }
         })
         .catch((err) => {
           toast(err.response?.data, { type: "error" });

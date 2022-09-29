@@ -115,27 +115,25 @@ export const placeOrder = () => (dispatch) => {
     });
 };
 
-//user
+// user
 
-export const userLogin = (data) => (dispatch) => {
+export const userLogin = (data) => () => {
   return axios
     .post(`${baseURL}/login`, data)
-    .then((res) => {
-      return res;
-    })
+    .then((res) => res)
     .catch((error) => {
-      toast("User Login Failed!", { type: "error" });
+      const errMsg = error?.response?.data?.message || 'Login Failed!'
+      toast(errMsg, { type: "error" });
     });
 };
 
-export const userSignup = (data) => (dispatch) => {
+export const userSignup = (data) => () => {
   return axios
     .post(`${baseURL}/signup`, data)
-    .then((res) => {
-      return res;
-    })
+    .then((res) => res)
     .catch((error) => {
-      toast("Registration Failed!", { type: "error" });
+      const errMsg = error?.response?.data?.message || 'Registration Failed!'
+      toast(errMsg, { type: "error" });
     });
 };
 

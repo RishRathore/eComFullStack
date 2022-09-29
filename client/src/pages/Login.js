@@ -10,18 +10,18 @@ const Login = () => {
   const [user, setuser] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const history = useHistory();
+
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(userLogin(user))
       .then((res) => {
-        localStorage.setItem("token", res?.data.token);
-        dispatch(getUser(res?.data?.token));
-        toast("login successfully!", { type: "success" });
-        history.push("/");
+        if (res && res.data) {
+          localStorage.setItem("token", res?.data?.token);
+          dispatch(getUser(res?.data?.token));
+          toast("login successfully!", { type: "success" });
+          history.push("/");
+        }
       })
-      .catch((err) => {
-        toast(err?.response.data, { type: "error" });
-      });
   };
 
   const handleChange = (e) => {

@@ -2,22 +2,20 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 
-const { keys } = require("./config");
+const { keys } = require("./configs/index"); 
 
 exports.verifyToken = async (req, res, next) => {
-  console.log("verifyToken", req.headers.authorization);
-  
-  const authorization = req.headers.authorization;
+  const authorization = req.headers.authorization
   const jwtSecretKey = keys.JWT_SECRET_KEY;
-  const token = authorization.split(" ")[1];
+  const token = authorization.split(" ")[1]
   if (token) {
     try {
       jwt.verify(token, jwtSecretKey);
-      next();
+      next()
     } catch (error) {
       res.json({
         login: false,
-        data: error,
+        data: error
       });
     }
   }
