@@ -43,10 +43,10 @@ export const removeCart = (id) => () => {
 };
 
 export const updateCart =
-  ({ id, operationType, productId }) =>
+  ({ id, operationType, productId, quantity }) =>
   (dispatch) => {
     return axios
-      .patch(`${baseURL}/cart/${id}`, { operationType, productId })
+      .patch(`${baseURL}/cart/${id}`, { operationType, productId, quantity })
       .then((res) => {
         return res;
       })
@@ -59,11 +59,12 @@ export const updateCart =
 
 export const getProductsList = () => (dispatch) => {
   return axios
-    .get(`${baseURL}/products`)
+    .get(`${baseURL}/products/ab`)
     .then((res) => {
       dispatch(actions.getProductDetails(res?.data));
     })
     .catch((error) => {
+      toast.error("Something went wrong!");
       console.log("error", error);
     });
 };
@@ -77,7 +78,7 @@ export const createProduct = (data) => (dispatch) => {
     })
     .catch((error) => {
       console.log("error", error);
-      toast("Something went wrong!", { type: "error" });
+      toast.error("Something went wrong!");
     });
 };
 

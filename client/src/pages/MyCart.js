@@ -52,7 +52,7 @@ const MyCart = () => {
     dispatch(removeCart(product._id))
       .then(() => {
         setTimeout(() => {
-          dispatch(getMyCart());
+          dispatch(getMyCart(userId));
         }, 1000);
       })
       .catch((err) => {
@@ -61,25 +61,26 @@ const MyCart = () => {
   };
 
   const handleQuantity = (data) => {
+    console.log("data", data);
     const params = {
-      id: data.val._id,
-      productId: data.val.product_id,
+      id: data.val?._id,
+      quantity: data.val?.quantity,
+      productId: data.val?.product_id?._id,
       operationType: data.flag === "dec" ? "decr" : "incr",
     };
 
     dispatch(updateCart(params)).then(() => {
       setTimeout(() => {
-        dispatch(getMyCart());
+        dispatch(getMyCart(userId));
       }, 500);
     });
   };
 
   return (
     <>
-      <div className="container my-2 me-0" style={{ marginTop: "100px" }}>
+      <div className="container my-2 me-auto" style={{ marginTop: "100px" }}>
         <div className=" cart-sec" style={{ display: "flex" }}>
           <div style={{ width: "100%" }}>
-            {cartItem.length > 0 && (
               <h4
                 className="text-decoration-underline"
                 style={{ marginTop: "24px" }}
@@ -88,10 +89,9 @@ const MyCart = () => {
                 My Bag
                 <FaShoppingCart />
               </h4>
-            )}
             {cartItem.length > 0 ? (
               <div className="row d-md-flex  d-sm-block d-block my-2">
-                <div className="col-md-6 col-sm-12 col-12  cart-product">
+                <div className="col-md-5 col-sm-12 col-12  cart-product">
                   <div className="container product-table p-0">
                     <div
                       className="row align-items-stretch"
@@ -166,7 +166,7 @@ const MyCart = () => {
                 />
               </div>
             ) : (
-              <div style={{ marginTop: "20%", marginLeft: "35%" }}>
+              <div style={{ marginTop: "10%", marginLeft: "25%" }}>
                 Your Basket is empty
                 <Link to="/"> View Some products</Link>
               </div>
