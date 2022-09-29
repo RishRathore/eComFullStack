@@ -19,20 +19,21 @@ export const getMyCart = (userId) => (dispatch) => {
     });
 };
 
-export const addToCart = (data, userId) => () => {
+export const addToCart = (data,userId) => () => {
   return axios
-    .post(`${baseURL}/cart/${data._id}`, { userId })
+    .post(`${baseURL}/cart/${data._id}`, { userId: userId })
     .then((res) => {
       return res;
     })
     .catch((error) => {
+      console.log(error);
       toast("Product not added!", { type: "error" });
     });
 };
 
 export const removeCart = (id) => () => {
   return axios
-    .delete(`${baseURL}/cart`, id)
+    .delete(`${baseURL}/cart/${id}`)
     .then((res) => {
       return res;
     })
@@ -104,9 +105,9 @@ export const getordersList = () => (dispatch) => {
     });
 };
 
-export const placeOrder = () => (dispatch) => {
+export const placeOrder = (userId, data) => (dispatch) => {
   return axios
-    .get(`${baseURL}/place-orders`)
+    .get(`${baseURL}/orders/${userId}`, data )
     .then((res) => {
       res && dispatch(getordersList());
     })

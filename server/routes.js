@@ -16,8 +16,10 @@ app.post("/addProduct", middlewares.upload, product.addProduct);
 
 app.get("/carts/:uid", middlewares.verifyToken, cart.getCartList);
 app.post("/cart/:id", middlewares.verifyToken, cart.addToCart);
-app.delete("/cart", middlewares.verifyToken, cart.flushCart);
-app.patch("/cart/:id", middlewares.verifyToken, cart.updateCart);
+app.delete("/cart/:id", middlewares.verifyToken, cart.flushCart);
+app.patch("/cart/:id",  middlewares.verifyToken, cart.updateCart);
+
+// app.get("/products", middlewares.verifyToken, product.getProducts);
 
 app.get("/orders/:uid", middlewares.verifyToken, order.getOrderHistory);
 app.post("/order/:uid", middlewares.verifyToken, order.placeOrder);

@@ -1,5 +1,5 @@
 import React ,{ useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaBoxes, FaCartPlus, FaHome, FaPlus, FaShoppingCart, FaSignInAlt, FaSignOutAlt, FaUserCircle } from "react-icons/fa";

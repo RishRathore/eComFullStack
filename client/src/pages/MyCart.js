@@ -7,29 +7,45 @@ import Billing from "../components/Billing";
 import { updateCart, removeCart, placeOrder } from "../actions";
 import { getMyCart } from "../actions";
 import { base64String } from "../utils/sorting";
+import { getTotalPrice } from "../utils/calculation";
 
 const MyCart = () => {
   const [subTotal, setSubTotal] = useState(0);
-
+  const [billingData, setBillingData] = useState([]);
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.data.cartItem);
   const userId = useSelector((state) => state?.data?.userData.id);
 
   useEffect(() => {
     dispatch(getMyCart(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   useEffect(() => {
     let total = 0;
+    let tprice = 0;
+    let values = [];
     cartItem.forEach((item) => {
-      total = total + item.total_price;
+      tprice = getTotalPrice(
+        item.product_id.price,
+        item.product_id.stock,
+        item.quantity
+      );
+      total = total + tprice.total;
+      values.push({ item: item, tprice });
     });
-    setSubTotal(total);
+    setBillingData(values);
+    setSubTotal(total.toFixed(2));
   }, [cartItem]);
 
   const handleOrder = () => {
-    // dispatch(placeOrder())
-    alert('Orderplaced');
+    //   multiples cartId .......
+    // const data = {
+    //   cartId: "",
+    //   totalBill: subTotal,
+    //   itemsCount: cartItem.length,
+    // };
+    // dispatch(placeOrder(userId, data));
+    alert("Orderplaced");
   };
 
   const handleRemoveItem = (product) => {
@@ -48,12 +64,13 @@ const MyCart = () => {
     const params = {
       id: data.val._id,
       productId: data.val.product_id,
-      operationType: data.flag === "dec"? 'decr' : 'incr',
-    }
+      operationType: data.flag === "dec" ? "decr" : "incr",
+    };
 
-    dispatch(updateCart(params))
-    .then(() => {
-      setTimeout(() => { dispatch(getMyCart());}, 500);
+    dispatch(updateCart(params)).then(() => {
+      setTimeout(() => {
+        dispatch(getMyCart());
+      }, 500);
     });
   };
 
@@ -85,13 +102,18 @@ const MyCart = () => {
                           <div className="card my-3 p-0 border-success">
                             <img
                               className="card-img-top border-bottom"
-                              src={`data:image/png;base64,${base64String(val?.product_id?.image?.data)}`}
+                              src={`data:image/png;base64,${base64String(
+                                val?.product_id?.image?.data
+                              )}`}
                               height={100}
                               width={50}
                               alt="Card"
                             />
                             <div className="card-body px-0 py-2 text-center">
-                              <h4 className="card-title"> {val.product_id?.name} </h4>
+                              <h4 className="card-title">
+                                {" "}
+                                {val.product_id?.name}{" "}
+                              </h4>
                               <p className="card-text mb-0">
                                 <strong>${val?.product_id?.price}</strong>
                               </p>
@@ -138,7 +160,7 @@ const MyCart = () => {
                   </div>
                 </div>
                 <Billing
-                  cartItem={cartItem}
+                  billingData={billingData}
                   subTotal={subTotal}
                   handleOrder={handleOrder}
                 />

@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import { FaCartPlus } from "react-icons/fa";
+import { base64String } from "../utils/sorting";
 
 export default function ProductModal({
   handleModal,
@@ -20,7 +21,7 @@ export default function ProductModal({
         <div className="modal-body">
           <img
             className="modal-img"
-            src={itemList.image}
+            src={`data:image/png;base64,${base64String(itemList.image?.data)}`}
             onClick={() => handleModal}
             alt="Card"
           />

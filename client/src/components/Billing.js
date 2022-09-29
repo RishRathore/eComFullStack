@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 
-const Billing = ({ cartItem, subTotal,handleOrder }) => (
-  <div className="col-md-4 col-sm-12 col-12 my-3 ms-5 billing">
+const Billing = ({ billingData, subTotal,handleOrder }) => (
+  <div className="col-md-5 col-sm-12 col-12 my-3 ms-3 billing">
     <div className="product-table">
       <Table bordered hover>
         <thead>
@@ -15,14 +15,14 @@ const Billing = ({ cartItem, subTotal,handleOrder }) => (
           </tr>
         </thead>
         <tbody className="border-success ">
-          {cartItem &&
-            cartItem.map((item, i) => (
+          {billingData && 
+            billingData.map((data, i) => (
             <tr key={i}  className="border-success">
-                <td>{item.product_id?.name}</td>
-                <td>{item.quantity} </td>
-                <td>{item.product_id?.price}</td>
-                <td> </td>
-                <td>$ {item.total_price}</td>
+                <td>{data.item.product_id?.name}</td>
+                <td>{data.item.quantity} </td>
+                <td>{data.item.product_id?.price.toFixed(2)}</td>
+                <td> {data.tprice.discount}</td>
+                <td>$ {data.tprice.total}</td>
               </tr>)
             )}
         </tbody>

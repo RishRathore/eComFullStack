@@ -8,13 +8,13 @@ exports.addToCart = async (req, res) => {
   try {
     const fillCarts = await Cart.find({ product_id: productId })
     if (fillCarts.length > 0) {
-      res.status(403)
+      res.status(200)
       res.send("product already in the cart")
     } else {
       const cart = new Cart({
         product_id: productId,
         user_id: userId,
-        quantity: 1
+        quantity: 1,
       })
       await cart.save()
       updateProductStock(productId, 'incr');
@@ -62,7 +62,7 @@ exports.updateCart = async (req, res) => {
 }
 
 exports.flushCart = async (req, res) => {
-  const { id } = req.body
+  const { id } = req.params
   try {
     if (id) {
       await Cart.deleteOne({ _id: id })

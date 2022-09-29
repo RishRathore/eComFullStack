@@ -17,15 +17,9 @@ const ProductList = ({ products }) => {
     dispatch(addToCart(val, loginUser.id))
       .then((res) => {
         if (res && res.data) {
-          if (res.status === 403) {
-            toast(res.data, {
-              type: "success",
-            });
-          } else {
-            toast(res.data, {
-              type: "success",
-            });
-          }
+          toast(res.data, {
+            type: "success",
+          });
           setOpen(false);
           dispatch(getProductsList());
         } else {
@@ -66,7 +60,9 @@ const ProductList = ({ products }) => {
                     <img
                       className="card-img-top w-50"
                       // src={product.image}
-                      src={`data:image/png;base64,${base64String(product?.image?.data)}`}
+                      src={`data:image/png;base64,${base64String(
+                        product?.image?.data
+                      )}`}
                       alt="Card"
                     />
                     <div className="card-body text-start">
@@ -92,7 +88,6 @@ const ProductList = ({ products }) => {
                 </div>
               );
             })}
-        
           </div>
         </div>{" "}
       </div>

@@ -15,6 +15,8 @@ import CreateProduct from "./pages/CreateProduct";
 import NavBar from "./components/NavBar";
 import { getUser } from "./actions";
 
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "react-loader-spinner/dist/loader/Circles"
 import "./App.css";
 
 if (typeof window !== "undefined") {

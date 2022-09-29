@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   useMemo(() => {
     sortProducts(products, dropdownValue);
-  }, [dropdownValue]);
+  }, [dropdownValue,products]);
 
   const inputChange = (e) => {
     const { value } = e.target;
@@ -118,7 +118,6 @@ const Dashboard = () => {
           </div>
 
       </div>
-
       <ProductList products={products} />
     </div>
   );
