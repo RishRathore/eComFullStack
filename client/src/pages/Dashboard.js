@@ -22,7 +22,7 @@ const Dashboard = () => {
     setDropdownValue(e);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     sortProducts(products, dropdownValue);
   }, [dropdownValue, products]);
 
@@ -35,16 +35,13 @@ const Dashboard = () => {
     e.preventDefault();
 
     if (inputValue.trim() !== "") {
-      // api.....for searching
       dispatch(getSearchProductsList(inputValue))
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
     }
-    setInputValue("");
   };
 
-  const onReload = () => {
+  const onRefresh = () => {
     dispatch(getProductsList());
+    setInputValue('')
   };
 
   return (
@@ -71,7 +68,7 @@ const Dashboard = () => {
                 className="mx-2"
                 variant="outline-success"
                 id="button-reload"
-                onClick={onReload}
+                onClick={onRefresh}
               >
                 Refresh
               </Button>

@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
-import ProductModal from "./ProductModal";
 import { addToCart, getProductsList } from "../actions";
 import { base64String } from "../utils/sorting";
 
 const ProductList = ({ products }) => {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-  const [itemList, setItemList] = useState(null);
   const loginUser = useSelector((state) => state?.data?.userData);
 
   const handleCart = (val) => {
@@ -20,10 +17,7 @@ const ProductList = ({ products }) => {
           toast(res.data, {
             type: "success",
           });
-          setOpen(false);
           dispatch(getProductsList());
-        } else {
-          setOpen(false);
         }
       })
       .catch((err) => {
@@ -31,15 +25,7 @@ const ProductList = ({ products }) => {
       })
       .catch((err) => {
         console.log(err);
-        setOpen(false);
       });
-  };
-
-  const handleModal = () => setOpen(!open);
-
-  const handleProductSelection = (product) => {
-    setItemList(product);
-    setOpen(!open);
   };
 
   return (
@@ -55,7 +41,6 @@ const ProductList = ({ products }) => {
                 <div key={index} className="col-md-6 col-sm-12 col-12 my-3">
                   <div
                     className="card p-md-3 p-sm-2 p-2 bg-light h-100 d-flex flex-row shadow border-success"
-                    onClick={() => handleProductSelection(product)}
                   >
                     <img
                       className="card-img-top w-50"
@@ -91,14 +76,6 @@ const ProductList = ({ products }) => {
           </div>
         </div>{" "}
       </div>
-      {open && (
-        <ProductModal
-          handleModal={handleModal}
-          open={open}
-          handleCart={handleCart}
-          itemList={itemList}
-        />
-      )}
     </div>
   );
 };

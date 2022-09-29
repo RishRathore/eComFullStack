@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { Formik } from "formik";
-import { createProduct } from "../actions";
 import { useDispatch } from "react-redux";
+
+import { createProduct } from "../actions";
 
 function CreateProduct() {
   const dispatch = useDispatch();
   const [imgFile, setImgFile] = useState(null);
+  const history = useHistory();
 
   const schema = Yup.object({
     name: Yup.string()
@@ -22,6 +25,23 @@ function CreateProduct() {
     file: Yup.mixed(),
   });
 
+  const onSubmit = (values, { resetForm }) => {
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("image", imgFile);
+    formData.append("price", values.price);
+    formData.append("stock", values.stock);
+    formData.append("description", values.description);
+
+    dispatch(createProduct(formData)).then(res => {
+      if (res) {
+        resetForm();
+        setImgFile("")
+        setTimeout(() => { history.push("/") }, 500);
+      }
+    })
+  }
+
   return (
     <div className="col-md-8 offset-md-3 col-sm-12 col-12 my-3 billing">
       <h4 className="my-4">
@@ -32,18 +52,7 @@ function CreateProduct() {
       </h4>
       <Formik
         validationSchema={schema}
-        onSubmit={(values, { resetForm }) => {
-          const formData = new FormData();
-          formData.append("name", values.name);
-          formData.append("image", imgFile);
-          formData.append("price", values.price);
-          formData.append("stock", values.stock);
-          formData.append("description", values.description);
-
-          dispatch(createProduct(formData));
-          resetForm();
-          setImgFile("")
-        }}
+        onSubmit={onSubmit}
         initialValues={{
           name: "",
           description: "",

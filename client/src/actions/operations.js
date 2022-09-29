@@ -27,13 +27,14 @@ export const addToCart = (data,userId) => () => {
     })
     .catch((error) => {
       console.log(error);
-      toast("Product not added!", { type: "error" });
+      const errMsg = error?.response?.data || 'Unable to Add!'
+      toast(errMsg, { type: "warning" });
     });
 };
 
-export const removeCart = (id) => () => {
+export const removeCart = (cartId, prodId) => () => {
   return axios
-    .delete(`${baseURL}/cart/${id}`)
+    .delete(`${baseURL}/cart/${cartId}`, { productId: prodId })
     .then((res) => {
       return res;
     })
@@ -73,8 +74,11 @@ export const createProduct = (data) => (dispatch) => {
   return axios
     .post(`${baseURL}/addProduct`, data)
     .then((res) => {
-      res && dispatch(getProductsList());
-      toast("Product added", { type: "success" });
+      if (res) {
+        dispatch(getProductsList());
+        toast("Product added", { type: "success" });
+        return true
+      }
     })
     .catch((error) => {
       console.log("error", error);
