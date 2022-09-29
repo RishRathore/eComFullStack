@@ -8,9 +8,9 @@ const baseURL = API_BASE_URL;
 
 //cart
 
-export const getAllCarts = () => (dispatch) => {
+export const getMyCart = (userId) => (dispatch) => {
   return axios
-    .get(`${baseURL}/carts`)
+    .get(`${baseURL}/carts/${userId}`)
     .then((res) => {
       dispatch(actions.successGetCarts(res?.data));
     })

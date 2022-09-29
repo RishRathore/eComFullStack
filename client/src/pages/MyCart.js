@@ -5,17 +5,18 @@ import { FaShoppingCart } from "react-icons/fa";
 
 import Billing from "../components/Billing";
 import { updateCart, removeCart, placeOrder } from "../actions";
-import { getAllCarts } from "../actions";
+import { getMyCart } from "../actions";
 import { base64String } from "../utils/sorting";
 
 const MyCart = () => {
   const [subTotal, setSubTotal] = useState(0);
 
   const dispatch = useDispatch();
-  let cartItem = useSelector((state) => state.data.cartItem);
-  console.log(cartItem);
+  const cartItem = useSelector((state) => state.data.cartItem);
+  const userId = useSelector((state) => state?.data?.userData.id);
+
   useEffect(() => {
-    dispatch(getAllCarts());
+    dispatch(getMyCart(userId));
   }, [dispatch]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const MyCart = () => {
     dispatch(removeCart(product._id))
       .then(() => {
         setTimeout(() => {
-          dispatch(getAllCarts());
+          dispatch(getMyCart());
         }, 1000);
       })
       .catch((err) => {
@@ -52,7 +53,7 @@ const MyCart = () => {
 
     dispatch(updateCart(params))
     .then(() => {
-      setTimeout(() => { dispatch(getAllCarts());}, 500);
+      setTimeout(() => { dispatch(getMyCart());}, 500);
     });
   };
 

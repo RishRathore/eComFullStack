@@ -4,7 +4,7 @@ const Product = require("../models/product")
 exports.addToCart = async (req, res) => {
   const { id: productId } = req.params
   const { userId } = req.body
-console.log("req: controller ", req.params, req.body )
+
   try {
     const fillCarts = await Cart.find({ product_id: productId })
     if (fillCarts.length > 0) {
@@ -30,7 +30,8 @@ console.log("req: controller ", req.params, req.body )
 
 exports.getCartList = async (req, res) => {
   try {
-    const carts = await Cart.find().populate("product_id")
+    const { uid } = req.params
+    const carts = await Cart.find({ user_id: uid }).populate("product_id")
     res.status(200)
     res.json(carts)
   } catch (err) {
