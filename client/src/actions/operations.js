@@ -59,7 +59,7 @@ export const updateCart =
 
 export const getProductsList = () => (dispatch) => {
   return axios
-    .get(`${baseURL}/products`)
+    .get(`${baseURL}/products/ab`)
     .then((res) => {
       dispatch(actions.getProductDetails(res?.data));
     })
