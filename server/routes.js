@@ -14,16 +14,13 @@ app.get("/user", user.getUser);
 app.get("/products", product.getProducts);
 app.post("/addProduct", middlewares.upload, product.addProduct);
 
-app.get("/orders", middlewares.verifyToken, order.getOrders);
-
-app.get("/carts", middlewares.verifyToken, cart.getCartList);
+app.get("/carts/:uid", middlewares.verifyToken, cart.getCartList);
 app.post("/cart/:id", middlewares.verifyToken, cart.addToCart);
 app.delete("/cart", middlewares.verifyToken, cart.flushCart);
-app.patch("/cart/:id", cart.updateCart);
+app.patch("/cart/:id", middlewares.verifyToken, cart.updateCart);
 
-// app.get("/products", middlewares.verifyToken, product.getProducts);
-
-// app.get('/carts', middlewares.verifyToken, cart.flushCart)
+app.get("/orders/:uid", middlewares.verifyToken, order.getOrderHistory);
+app.post("/order/:uid", middlewares.verifyToken, order.placeOrder);
 
 app.get("/set-cookie", (req, res) => {
   res.cookie("cookieName", "1", {
