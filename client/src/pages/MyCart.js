@@ -39,7 +39,7 @@ const MyCart = () => {
 
   useEffect(() => {
     if (cartItem.length > 0) {
-      const { cartProducts } = cartItem.reverse()[0];
+      const { cartProducts } = cartItem[0];
       setCartProductsData(cartProducts);
     }
   }, [cartItem]);
@@ -77,7 +77,7 @@ const MyCart = () => {
 
   const handleOrder = () => {
     const data = {
-      cartId: cartItem.reverse()[0]?._id,
+      cartId: cartItem[0]?._id,
       totalBill: subTotal,
       itemsCount: cartData.length,
     };
@@ -87,7 +87,7 @@ const MyCart = () => {
 
   const handleRemoveItem = (product) => {
     console.log(product, "Removing product");
-    const cartId = cartItem.reverse()[0]?._id;
+    const cartId = cartItem[0]?._id;
     dispatch(removeCart(cartId, product?.productDetails[0]?._id))
       .then(() => {
         setTimeout(() => {
@@ -102,7 +102,7 @@ const MyCart = () => {
   const handleQuantity = (data) => {
     console.log("data", data);
     const params = {
-      id: cartItem.reverse()[0]._id,
+      id: cartItem[0]._id,
       quantity: data.val?.quantity,
       productId: data.val?.productDetails[0]?._id,
       operationType: data.flag === "dec" ? "decr" : "incr",
@@ -128,7 +128,7 @@ const MyCart = () => {
               My Bag
               <FaShoppingCart />
             </h4>
-            {!cartItem.reverse()[0]?.orderPlaced &&
+            {!cartItem[0]?.orderPlaced &&
             CartProductsData &&
             CartProductsData.length > 0 ? (
               <div className="row d-md-flex  d-sm-block d-block my-2">
