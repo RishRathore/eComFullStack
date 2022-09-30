@@ -53,7 +53,7 @@ exports.addToCart = async (req, res) => {
 exports.getCartList = async (req, res) => {
   try {
     const { uid } = req.params
-    const carts = await Cart.find({ user_id: uid })
+    const carts = await Cart.find({ user_id: uid, orderPlaced: false })
     res.status(200)
     res.json(carts)
   } catch (err) {
