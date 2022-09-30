@@ -14,25 +14,24 @@ exports.addToCart = async (req, res) => {
     }
 
     if (cart && cart.length > 0 && !cart[0].orderPlaced) {
+      // if cart is already ordered or not (create new cart)
+
       const cartId = cart[0]._id
+      const cartProducts = cart[0].cartProducts
+      const isProductAlreadyAdded = cartProducts
+        .some(({ product_id }) => (String(product_id) === String(productId)));
 
-      if (!cart[0].orderPlaced) { // if cart is already ordered or not (create new cart)
-        const cartProducts = cart[0].cartProducts
-        const isProductAlreadyAdded = cartProducts
-          .some(({ product_id }) => (String(product_id) === String(productId)));
-
-        if (isProductAlreadyAdded) {
-          res.status(403)
-          res.send("product already in the cart")
-        } else { // if cart already exist, add product in same cart
-          await Cart.findOneAndUpdate(
-            { _id: cartId },
-            { $push: { cartProducts: item } }
-          )
-          res.status(200)
-          res.send("product added!")
-          updateProductStock(productId, 'incr');
-        }
+      if (isProductAlreadyAdded) {
+        res.status(403)
+        res.send("product already in the cart")
+      } else { // if cart already exist, add product in same cart
+        await Cart.findOneAndUpdate(
+          { _id: cartId },
+          { $push: { cartProducts: item } }
+        )
+        res.status(200)
+        res.send("product added!")
+        updateProductStock(productId, 'incr');
       }
     } else { // if cart doesn't exist, create one and add product
       const cart = new Cart({
@@ -66,13 +65,15 @@ exports.updateCart = async (req, res) => {
   const { id } = req.params
   const { quantity, operationType, productId } = req.body
 
+  console.log('id', id)
+  console.log(quantity, operationType, productId)
   try {
     const qty = operationType === 'incr' ? quantity + 1 : quantity - 1;
 
     await Cart.updateOne(
       { _id: id },
-      { $set : { "cartProducts.$[t].quantity": qty }},
-      { arrayFilters : [{"t.product_id" : productId }]}
+      { $set: { "cartProducts.$[t].quantity": qty } },
+      { arrayFilters: [{ "t.product_id": productId }] }
     )
     updateProductStock(productId, operationType);
     res.status(200)
@@ -90,8 +91,8 @@ exports.removeFromCart = async (req, res) => {
   try {
     if (id) {
       await Cart.updateOne(
-        { _id : id },
-        { $pull : { "cartProducts" : { "product_id": productId }}}
+        { _id: id },
+        { $pull: { "cartProducts": { "product_id": productId } } }
       )
       res.status(200)
       res.send("removed")

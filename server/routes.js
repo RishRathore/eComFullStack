@@ -17,7 +17,7 @@ app.post("/addProduct", middlewares.upload, product.addProduct);
 app.get("/carts/:uid", middlewares.verifyToken, cart.getCartList);
 app.post("/cart/:uid", middlewares.verifyToken, cart.addToCart);
 app.delete("/cart/:id", middlewares.verifyToken, cart.removeFromCart);
-app.patch("/cart/:id",  middlewares.verifyToken, cart.updateCart);
+app.post("/updadteCart/:id",  middlewares.verifyToken, cart.updateCart);
 
 // app.get("/products", middlewares.verifyToken, product.getProducts);
 

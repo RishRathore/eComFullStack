@@ -28,10 +28,6 @@ const MyCart = () => {
   const userId = useSelector((state) => state?.data?.userData.id);
   const products = useSelector((state) => state?.data?.products);
 
-  console.log(products, "products");
-  console.log(cartItem, "cartItam", CartProductsData);
-  console.log(cartData, "adsd");
-
   useEffect(() => {
     dispatch(getMyCart(userId));
     dispatch(getProductsList());
@@ -48,9 +44,9 @@ const MyCart = () => {
     let val = [];
 
     CartProductsData.forEach((cartProduct, i) => {
-      const data = products.filter((pr) => pr._id === cartProduct.product_id);
+      const data = products.find((pr) => pr._id === cartProduct.product_id);
       console.log(data, "dta");
-      val.push({ productDetails: { ...data }, quantity: cartProduct.quantity });
+      val.push({ productDetails: data, quantity: cartProduct.quantity });
     });
 
     setCartData(val);
@@ -63,8 +59,8 @@ const MyCart = () => {
 
     cartData.forEach((item) => {
       tprice = getTotalPrice(
-        item.productDetails[0]?.price,
-        item.productDetails[0]?.stock,
+        item.productDetails?.price,
+        item.productDetails?.stock,
         item.quantity
       );
       total = total + tprice?.total;
@@ -86,9 +82,8 @@ const MyCart = () => {
   };
 
   const handleRemoveItem = (product) => {
-    console.log(product, "Removing product");
     const cartId = cartItem[0]?._id;
-    dispatch(removeCart(cartId, product?.productDetails[0]?._id))
+    dispatch(removeCart(cartId, product?.productDetails?._id))
       .then(() => {
         setTimeout(() => {
           dispatch(getMyCart(userId));
@@ -100,19 +95,15 @@ const MyCart = () => {
   };
 
   const handleQuantity = (data) => {
-    console.log("data", data);
     const params = {
       id: cartItem[0]._id,
       quantity: data.val?.quantity,
-      productId: data.val?.productDetails[0]?._id,
+      productId: data.val?.productDetails?._id,
       operationType: data.flag === "dec" ? "decr" : "incr",
+      userId
     };
 
-    dispatch(updateCart(params)).then(() => {
-      setTimeout(() => {
-        dispatch(getMyCart(userId));
-      }, 500);
-    });
+    dispatch(updateCart(params))
   };
 
   return (
@@ -145,7 +136,7 @@ const MyCart = () => {
                               <img
                                 className="card-img-top border-bottom"
                                 src={`data:image/png;base64,${base64String(
-                                  val?.productDetails[0]?.image?.data
+                                  val?.productDetails?.image?.data
                                 )}`}
                                 height={100}
                                 width={50}
@@ -154,11 +145,11 @@ const MyCart = () => {
                               <div className="card-body px-0 py-2 text-center">
                                 <h4 className="card-title">
                                   {" "}
-                                  {val.productDetails[0]?.name}{" "}
+                                  {val.productDetails?.name}{" "}
                                 </h4>
                                 <p className="card-text mb-0">
                                   <strong>
-                                    ${val?.productDetails[0]?.price}
+                                    ${val?.productDetails?.price}
                                   </strong>
                                 </p>
                                 <div className="">

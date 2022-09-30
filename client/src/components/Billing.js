@@ -18,9 +18,9 @@ const Billing = ({ billingData, subTotal,handleOrder }) => (
           {billingData && 
             billingData.map((data, i) => (
             <tr key={i}  className="border-success">
-                <td>{data.item?.productDetails[0]?.name}</td>
+                <td>{data.item?.productDetails?.name}</td>
                 <td>{data.item?.quantity} </td>
-                <td>{data.item?.productDetails[0]?.price.toFixed(2)}</td>
+                <td>{data.item?.productDetails?.price.toFixed(2)}</td>
                 <td> {data?.tprice?.discount}</td>
                 <td>$ {data?.tprice?.total}</td>
               </tr>)

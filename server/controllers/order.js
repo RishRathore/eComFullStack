@@ -18,7 +18,7 @@ const Cart = require('../models/cart')
 exports.getOrderHistory = async (req, res) => {
   try {
     const { uid } = req.params
-    const myOrders = await Order.find({ user_id: uid }).populate("cart_id")
+    const myOrders = await Order.find({ user_id: uid }).populate("_id")
     res.status(200)
     res.json(myOrders)
   } catch (err) {

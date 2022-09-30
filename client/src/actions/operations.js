@@ -19,7 +19,7 @@ export const getMyCart = (userId) => (dispatch) => {
     });
 };
 
-export const addToCart = (data,userId) => () => {
+export const addToCart = (data, userId) => () => {
   return axios
     .post(`${baseURL}/cart/${userId}`, { productId: data._id })
     .then((res) => {
@@ -33,8 +33,9 @@ export const addToCart = (data,userId) => () => {
 };
 
 export const removeCart = (cartId, prodId) => () => {
+  console.log('remove', cartId, prodId)
   return axios
-    .delete(`${baseURL}/cart/${cartId}`, { productId: prodId })
+    .delete(`${baseURL}/cart/${cartId}`, { data: { productId: prodId } })
     .then((res) => {
       return res;
     })
@@ -44,17 +45,21 @@ export const removeCart = (cartId, prodId) => () => {
 };
 
 export const updateCart =
-  ({ id, operationType, productId, quantity }) =>
-  (dispatch) => {
-    return axios
-      .patch(`${baseURL}/cart/${id}`, { operationType, productId, quantity })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        toast("Product update Failed!", { type: "error" });
-      });
-  };
+  ({ id, operationType, productId, quantity, userId }) =>
+    (dispatch) => {
+      return axios
+        .post(`${baseURL}/updadteCart/${id}`, { operationType, productId, quantity }
+        )
+        .then((res) => {
+          if (res) {
+            dispatch(getMyCart(userId));
+          }
+        })
+        .catch((error) => {
+          const errMsg = error?.response?.data || 'Something went wrong!'
+          toast(errMsg, { type: "error" });
+        });
+    };
 
 //product
 
@@ -112,7 +117,7 @@ export const getordersList = (userId) => (dispatch) => {
 
 export const placeOrder = (userId, data) => (dispatch) => {
   return axios
-    .post(`${baseURL}/order/${userId}`, data )
+    .post(`${baseURL}/order/${userId}`, data)
     .then((res) => {
       res && dispatch(getordersList());
       toast.success(res.data);
