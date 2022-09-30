@@ -18,7 +18,7 @@ const MyCart = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [billingData, setBillingData] = useState([]);
 
-  const [CartProductsData, setCartProductsData] = useState([]);
+  const [cartProductsData, setCartProductsData] = useState([]);
   const [cartData, setCartData] = useState([]);
 
   const history = useHistory();
@@ -43,14 +43,13 @@ const MyCart = () => {
   useEffect(() => {
     let val = [];
 
-    CartProductsData.forEach((cartProduct, i) => {
+    cartProductsData.forEach((cartProduct, i) => {
       const data = products.find((pr) => pr._id === cartProduct.product_id);
-      console.log(data, "dta");
       val.push({ productDetails: data, quantity: cartProduct.quantity });
     });
 
     setCartData(val);
-  }, [products, CartProductsData]);
+  }, [products, cartProductsData]);
 
   useEffect(() => {
     let total = 0;
@@ -100,10 +99,10 @@ const MyCart = () => {
       quantity: data.val?.quantity,
       productId: data.val?.productDetails?._id,
       operationType: data.flag === "dec" ? "decr" : "incr",
-      userId
+      userId,
     };
 
-    dispatch(updateCart(params))
+    dispatch(updateCart(params));
   };
 
   return (
@@ -120,8 +119,8 @@ const MyCart = () => {
               <FaShoppingCart />
             </h4>
             {!cartItem[0]?.orderPlaced &&
-            CartProductsData &&
-            CartProductsData.length > 0 ? (
+            cartProductsData &&
+            cartProductsData.length > 0 ? (
               <div className="row d-md-flex  d-sm-block d-block my-2">
                 <div className="col-md-5 col-sm-12 col-12  cart-product">
                   <div className="container product-table p-0">
@@ -148,9 +147,7 @@ const MyCart = () => {
                                   {val.productDetails?.name}{" "}
                                 </h4>
                                 <p className="card-text mb-0">
-                                  <strong>
-                                    ${val?.productDetails?.price}
-                                  </strong>
+                                  <strong>${val?.productDetails?.price}</strong>
                                 </p>
                                 <div className="">
                                   <div className="quantity d-flex align-items-center justify-content-center">
@@ -170,7 +167,10 @@ const MyCart = () => {
                                     </p>
                                     <button
                                       className="btn border-success"
-                                      disabled={val.stock <= val?.quantity}
+                                      disabled={
+                                        val?.productDetails?.stock <=
+                                        val?.quantity
+                                      }
                                       onClick={(e) => {
                                         e.preventDefault();
                                         handleQuantity({ val, flag: "inc" });

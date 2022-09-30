@@ -33,7 +33,6 @@ export const addToCart = (data, userId) => () => {
 };
 
 export const removeCart = (cartId, prodId) => () => {
-  console.log('remove', cartId, prodId)
   return axios
     .delete(`${baseURL}/cart/${cartId}`, { data: { productId: prodId } })
     .then((res) => {

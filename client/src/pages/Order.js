@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getordersList } from "../actions";
 
 import "bootstrap/js/src/collapse";
+import { formatDate } from "../utils/dateFormatter";
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -16,19 +17,6 @@ const Order = () => {
   useEffect(() => {
     dispatch(getordersList(userId));
   }, [dispatch]);
-
-  console.log("ordersList: ", orderList);
-
-  const products = orderList.map((item, i) => {
-    const { cartProducts } = item?.cart_id;
-    let val = [];
-    cartProducts.map((p, ind) => {
-      val.push({ id: p.product_id, quantity: p.quantity });
-    });
-    return val;
-  });
-
-  console.log(products[0], "orderlist page");
 
   return (
     <div className="col-md-8 offset-md-2 col-sm-12 col-12 my-3 billing">
@@ -52,7 +40,7 @@ const Order = () => {
                 orderList?.map((item, i) => (
                   <tr key={item?._id}>
                     <td>{i + 1}</td>
-                    <td>{item?.createdAt?.slice(0, 10)}</td>
+                    <td>{formatDate(item?.createdAt?.slice(0, 10))}</td>
                     <td>{item?.items_count}</td>
                     <td>$ {item?.total_bill}</td>
                   </tr>
