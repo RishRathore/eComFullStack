@@ -95,6 +95,7 @@ exports.removeFromCart = async (req, res) => {
         { _id: id },
         { $pull: { cartProducts: { product_id: productId } } }
       );
+      updateProductStock(productId, 'decr');
       res.status(200);
       res.send("removed");
     }

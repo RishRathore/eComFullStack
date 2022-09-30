@@ -18,9 +18,12 @@ function CreateProduct() {
       .max(20, "too long")
       .required("required"),
     description: Yup.string().min(5, "too short").required("required"),
-    price: Yup.number().min(1, "minimum price must be 1").required("required"),
+    price: Yup.number()
+      .min(1, "minimum price must be 1")
+      .required("required"),
     stock: Yup.number()
       .min(1, "minimum quantity must be 1")
+      .integer("invalid decimal")
       .required("required"),
     file: Yup.mixed(),
   });
@@ -33,14 +36,16 @@ function CreateProduct() {
     formData.append("stock", values.stock);
     formData.append("description", values.description);
 
-    dispatch(createProduct(formData)).then(res => {
+    dispatch(createProduct(formData)).then((res) => {
       if (res) {
         resetForm();
-        setImgFile("")
-        setTimeout(() => { history.push("/") }, 500);
+        setImgFile("");
+        setTimeout(() => {
+          history.push("/");
+        }, 500);
       }
-    })
-  }
+    });
+  };
 
   return (
     <div className="col-md-8 offset-md-3 col-sm-12 col-12 my-3 billing">
@@ -107,8 +112,8 @@ function CreateProduct() {
                     value={values.price}
                     onChange={handleChange}
                   />
-                  {errors && errors.stock && (
-                    <p className="text-danger p-1"> {errors.stock}</p>
+                  {errors && errors.price && (
+                    <p className="text-danger p-1"> {errors.price}</p>
                   )}
                 </Form.Group>
               </Row>
