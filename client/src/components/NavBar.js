@@ -24,7 +24,7 @@ const NavBar = () => {
   return (
     <div className="">
       <Navbar bg="secondary" className="flex-wrap px-4">
-          <Navbar.Brand href="/" className="text-white d-flex align-items-center  border-bottom px-0 py-3 mx-0 my-2">
+          <Navbar.Brand className="text-white d-flex align-items-center  border-bottom px-0 py-3 mx-0 my-2">
           <div className="bg-white text-warning rounded-circle d-flex align-items-center justify-content-center logo-icon"> 
           <FaCartPlus />
           </div>

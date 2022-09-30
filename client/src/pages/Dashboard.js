@@ -106,7 +106,7 @@ const Dashboard = () => {
         </div>
         <div className="col-md-3 my-2 text-center">
           <Link to={"/create-product"}>
-            <Button className="bg-success" style={{ margin: "auto" }}>
+            <Button className="bg-success border-success shadow" >
               {" "}
               Create Product{" "}
             </Button>{" "}

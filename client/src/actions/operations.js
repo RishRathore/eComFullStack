@@ -99,9 +99,9 @@ export const getSearchProductsList = (data) => (dispatch) => {
 
 //orders
 
-export const getordersList = () => (dispatch) => {
+export const getordersList = (userId) => (dispatch) => {
   return axios
-    .get(`${baseURL}/orders`)
+    .get(`${baseURL}/orders/${userId}`)
     .then((res) => {
       dispatch(actions.getOrder(res?.data));
     })
@@ -112,12 +112,17 @@ export const getordersList = () => (dispatch) => {
 
 export const placeOrder = (userId, data) => (dispatch) => {
   return axios
-    .get(`${baseURL}/orders/${userId}`, data )
+    .post(`${baseURL}/order/${userId}`, data )
     .then((res) => {
       res && dispatch(getordersList());
+      toast.success(res.data);
     })
     .catch((error) => {
+      const errMsg = error?.response?.data?.message || 'Something went wrong!'
+      toast(errMsg, { type: "error" });
       console.log("error", error);
+      toast(errMsg, { type: "error" });
+
     });
 };
 

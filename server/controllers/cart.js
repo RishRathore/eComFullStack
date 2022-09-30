@@ -13,23 +13,26 @@ exports.addToCart = async (req, res) => {
       quantity: 1
     }
 
-    if (cart && cart.length > 0) {
+    if (cart && cart.length > 0 && !cart[0].orderPlaced) {
       const cartId = cart[0]._id
-      const cartProducts = cart[0].cartProducts
-      const isProductAlreadyAdded = cartProducts
-        .some(({ product_id }) => (String(product_id) === String(productId)));
 
-      if (isProductAlreadyAdded) {
-        res.status(403)
-        res.send("product already in the cart")
-      } else { // if cart already exist, add product in same cart
-        await Cart.findOneAndUpdate(
-          { _id: cartId },
-          { $push: { cartProducts: item } }
-        )
-        res.status(200)
-        res.send("product added!")
-        updateProductStock(productId, 'incr');
+      if (!cart[0].orderPlaced) { // if cart is already ordered or not (create new cart)
+        const cartProducts = cart[0].cartProducts
+        const isProductAlreadyAdded = cartProducts
+          .some(({ product_id }) => (String(product_id) === String(productId)));
+
+        if (isProductAlreadyAdded) {
+          res.status(403)
+          res.send("product already in the cart")
+        } else { // if cart already exist, add product in same cart
+          await Cart.findOneAndUpdate(
+            { _id: cartId },
+            { $push: { cartProducts: item } }
+          )
+          res.status(200)
+          res.send("product added!")
+          updateProductStock(productId, 'incr');
+        }
       }
     } else { // if cart doesn't exist, create one and add product
       const cart = new Cart({
